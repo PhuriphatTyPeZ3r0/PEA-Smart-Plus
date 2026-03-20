@@ -98,13 +98,13 @@ export default function RatingView({
       </div>
 
       {/* Buttons Area */}
-      <div className="mt-auto pt-6 pb-12 px-5 flex flex-col justify-center items-start gap-4">
+      <div className="mt-auto pt-10 pb-12 px-5 bg-white shadow-[0px_-12px_24px_-4px_rgba(145,158,171,0.12)] sm:shadow-[0px_12px_24px_-4px_rgba(145,158,171,0.12)] relative z-30 flex flex-col justify-center items-start gap-5">
         <button
           onClick={onRatingSubmit}
           disabled={rating === 0}
-          className={`self-stretch px-5 py-4 rounded-full shadow-[0_1px_2px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] flex justify-center items-center transition-all ${
+          className={`self-stretch px-5 py-4 rounded-full shadow-[0_1px_2px_rgba(16,24,40,0.05)] outline outline-2 outline-offset-[-2px] flex justify-center items-center transition-all ${
             rating > 0
-              ? "bg-[#A80689] text-white outline-[#A80689] active:scale-[0.98]"
+              ? "bg-[#A80689] text-white outline-white/10 shadow-[inset_0px_-2px_0px_rgba(16,24,40,0.05),_inset_0px_0px_0px_1px_rgba(16,24,40,0.18)] active:scale-[0.98]"
               : "bg-[#F2F4F7] text-[#98A1B2] outline-[#E4E7EC] cursor-not-allowed"
           }`}
         >
@@ -113,9 +113,13 @@ export default function RatingView({
 
         <button
           onClick={onGoToReview}
-          className="self-stretch px-5 py-4 bg-white rounded-full shadow-[0_1px_2px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] outline-[#E4E7EC] flex justify-center items-center hover:bg-slate-50 active:scale-[0.98] transition-all"
+          className={`self-stretch px-5 py-4 bg-white rounded-full shadow-[0_1px_2px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] flex justify-center items-center transition-all ${
+            rating > 0
+              ? "text-[#344054] outline-[#D0D5DD] hover:bg-slate-50 active:scale-[0.98]"
+              : "text-[#98A1B2] outline-[#E4E7EC] cursor-not-allowed"
+          }`}
         >
-          <span className="text-[#344054] text-xl font-medium font-['Kanit'] leading-7">เขียนรีวิวเพิ่มเติม</span>
+          <span className="text-xl font-medium font-['Kanit'] leading-7">เขียนรีวิวเพิ่มเติม</span>
         </button>
       </div>
     </div>
