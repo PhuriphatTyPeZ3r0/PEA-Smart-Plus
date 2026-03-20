@@ -1,0 +1,16 @@
+{
+  "name": "Evaluate Satisfaction",
+  "short_name": "Satisfaction",
+  "description": "PEA Smart Plus Satisfaction Evaluation",
+  "start_url": "/Evaluate_Satisfaction/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7B2CBF",
+  "icons": [
+    {
+      "src": "/Evaluate_Satisfaction/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}
