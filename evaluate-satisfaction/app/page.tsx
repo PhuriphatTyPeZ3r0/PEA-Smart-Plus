@@ -68,9 +68,9 @@ export default function AppFlow() {
       const userAccIdenNumber = localStorage.getItem("UserAccIdenNumber") || "";
       const lang = localStorage.getItem("SetLanguage") || "TH";
 
-      console.log("Fetching satisfaction question via local proxy for:", { userAccIdenNumber, lang });
+      console.log("Fetching satisfaction question directly from PEA for:", { userAccIdenNumber, lang });
       
-      const res = await fetch("/api/pea/get-question", {
+      const res = await fetch("https://smartplus3-api-dev.pea.co.th/API/EvaluateSatisfaction/GetQuestionByUserCA", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -81,7 +81,7 @@ export default function AppFlow() {
 
       if (res.ok) {
         const data = await res.json();
-        console.log("Local Proxy Response:", data);
+        console.log("PEA Response:", data);
         
         // Handle all possible success values (1, "1", true, "true")
         const isSuccess = data.result === 1 || data.result === "1" || data.result === true || String(data.result).toLowerCase() === "true";
@@ -97,7 +97,7 @@ export default function AppFlow() {
           console.warn("API returned result: 0 or false. Popup will not show. Result was:", data.result);
         }
       } else {
-        console.error("Local Proxy failed, status:", res.status);
+        console.error("PEA API failed, status:", res.status);
       }
     } catch (err) {
       console.error("Failed to fetch satisfaction question:", err);
@@ -109,7 +109,7 @@ export default function AppFlow() {
     try {
       const userAccIdenNumber = localStorage.getItem("UserAccIdenNumber") || "";
       console.log("Logging evaluation show for QuestionId:", questionId);
-      const res = await fetch("/api/pea/proxy/InsertLogShow", {
+      const res = await fetch("https://smartplus3-api-dev.pea.co.th/API/EvaluateSatisfaction/InsertLogShow", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -134,7 +134,7 @@ export default function AppFlow() {
       const questionId = activeQuestion?.questionId ?? 0;
       console.log("Logging dismissal for QuestionId:", questionId);
       
-      await fetch("/api/pea/proxy/InsertLogDismiss", {
+      await fetch("https://smartplus3-api-dev.pea.co.th/API/EvaluateSatisfaction/InsertLogDismiss", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -154,7 +154,7 @@ export default function AppFlow() {
       
       console.log("Submitting satisfaction (InsertAnswerOrLog):", { questionId, score, commentText });
       
-      const res = await fetch(`/api/pea/proxy/InsertAnswerOrLog`, {
+      const res = await fetch(`https://smartplus3-api-dev.pea.co.th/API/EvaluateSatisfaction/InsertAnswerOrLog`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
