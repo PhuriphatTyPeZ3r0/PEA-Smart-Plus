@@ -13,17 +13,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Evaluate Satisfaction",
+  title: "PEA Smart Plus",
   description: "PEA Smart Plus Satisfaction Evaluation",
   manifest: "/Evaluate_Satisfaction/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Evaluate Satisfaction",
+    title: "PEA Smart Plus",
   },
   icons: {
-    icon: "/Evaluate_Satisfaction/favicon.ico",
-    apple: "/Evaluate_Satisfaction/favicon.ico",
+    icon: "/Evaluate_Satisfaction/pwa-icon.png",
+    apple: "/Evaluate_Satisfaction/pwa-icon.png",
   }
 };
 

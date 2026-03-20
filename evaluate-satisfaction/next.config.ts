@@ -2,8 +2,7 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
-  output: 'export',
-  basePath: '/Evaluate_Satisfaction',
+  // basePath: '/Evaluate_Satisfaction', // Uncomment if you want to serve from a subpath
   images: {
     unoptimized: true,
   },
