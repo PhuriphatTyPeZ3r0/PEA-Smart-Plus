@@ -7,7 +7,6 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  // @ts-expect-error - turbopack root for Next.js 16/Canary
   turbopack: {
     root: path.resolve(__dirname),
   },
