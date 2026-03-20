@@ -8,7 +8,7 @@ interface ReviewViewProps {
 
 export default function ReviewView({ comment, setComment, onReviewSubmit }: ReviewViewProps) {
   return (
-    <div className="flex-1 flex flex-col px-8 pt-20 pb-10 animate-slide-in-right">
+    <div className="flex-1 flex flex-col px-8 pt-20 pb-10 animate-slide-in-right overflow-y-auto no-scrollbar">
       <h1 className="text-[20px] font-bold text-[#1F2937] mb-6">ประเมินรายละเอียดเพิ่มเติม</h1>
       
       <label className="text-[14px] text-[#4B5563] mb-2 font-medium">แนะนำโดยรวมของท่าน</label>

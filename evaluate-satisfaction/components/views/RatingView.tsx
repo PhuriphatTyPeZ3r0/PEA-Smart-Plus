@@ -22,7 +22,7 @@ export default function RatingView({
   onGoToReview
 }: RatingViewProps) {
   return (
-    <div className="flex-1 flex flex-col items-center px-8 pt-16 pb-10">
+    <div className="flex-1 flex flex-col items-center px-8 pt-16 pb-10 overflow-y-auto no-scrollbar">
       <div className="mb-8 mt-4">
         <Image 
           src="/asset/icons/evaluate-satisfaction-icon/Mask group.svg" 

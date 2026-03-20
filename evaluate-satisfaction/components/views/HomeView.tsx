@@ -29,8 +29,8 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeV
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-transparent"></div>
         
         {/* Content on Header */}
-        <div className="relative z-10 pt-14">
-          <div className="px-6 flex justify-between items-center mb-8">
+        <div className="relative z-10 pt-safe-top">
+          <div className="px-6 flex justify-between items-center mb-8 mt-4">
             <Image 
               src="/asset/icons/home-icon/Logo - Flat Logo w TH Motto - Main 2.svg" 
               alt="PEA Logo" 
@@ -151,7 +151,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeV
       </div>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 w-full max-w-[430px] bg-white/95 backdrop-blur-xl border-t border-slate-100 flex justify-around items-center h-[85px] pb-5 px-4 z-50 shadow-[0_-8px_30px_rgba(0,0,0,0.03)] rounded-t-[32px]">
+      <div className="absolute bottom-0 left-0 w-full bg-white/95 backdrop-blur-xl border-t border-slate-100 flex justify-around items-center h-[85px] pb-safe-bottom px-4 z-50 shadow-[0_-8px_30px_rgba(0,0,0,0.03)] rounded-t-[32px] sm:max-w-[430px]">
          <div className="flex flex-col items-center gap-1 text-[#7B2CBF] cursor-pointer">
             <div className="w-8 h-8 flex items-center justify-center">
               <Image src="/asset/icons/home-icon/Vector-3.svg" alt="Home" width={24} height={24} className="brightness-90 contrast-125" />
