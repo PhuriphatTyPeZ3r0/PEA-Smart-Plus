@@ -9,6 +9,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-geist-sans: 'Kanit';
+  --font-geist-mono: 'Courier New';
 }
 
 @media (prefers-color-scheme: dark) {
@@ -67,4 +69,13 @@ body {
 
 @utility pt-safe-top {
   padding-top: env(safe-area-inset-top, 0px);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

@@ -1,140 +1,127 @@
 "use client";
 
-import React, { useState } from "react";
-import { ChevronLeft, Home, Building2, Settings2, Zap, User } from "lucide-react";
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+import React from "react";
+import type { EditableNotificationSettingKey, NotificationPreferences } from "./notificationData";
+import {
+  NotificationContentContainer,
+  NotificationHeader,
+  NotificationStatusBar,
+  NotificationToggle,
+  cn,
+} from "./notificationShared";
 
 interface NotificationSettingsViewProps {
+  settings: NotificationPreferences;
   onBack: () => void;
+  onToggleSetting: (key: EditableNotificationSettingKey) => void;
 }
 
-export default function NotificationSettingsView({ onBack }: NotificationSettingsViewProps) {
-  const [settings, setSettings] = useState({
-    general: true,
-    privilege: true,
-    news: false,
-    update: true,
-  });
-
-  const toggleSetting = (key: keyof typeof settings) => {
-    setSettings((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
-  };
-
+export default function NotificationSettingsView({
+  settings,
+  onBack,
+  onToggleSetting,
+}: NotificationSettingsViewProps) {
   return (
-    <div className="flex-1 flex flex-col bg-white overflow-hidden animate-slide-in-right h-full">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-[#9B2677] to-[#df338d] pt-12 pb-4 px-4 relative shrink-0">
-        <div className="flex items-center justify-between text-white">
-          <button onClick={onBack} className="p-1 hover:opacity-80 transition-opacity active:scale-90">
-            <ChevronLeft className="w-7 h-7" />
-          </button>
-          <h1 className="text-[19px] font-bold font-['Kanit']">ตั้งค่าการแจ้งเตือน</h1>
-          <div className="w-7 h-7" /> {/* Placeholder for balance */}
-        </div>
-      </div>
+    <div className="flex h-full flex-col overflow-hidden bg-[#F9FAFB] animate-slide-in-right">
+      <NotificationStatusBar />
+      <NotificationHeader title="การแจ้งเตือน" onBack={onBack} />
 
-      {/* Settings List */}
-      <div className="flex-1 overflow-y-auto no-scrollbar py-2 bg-gray-50/30">
-        <div className="bg-white px-4">
-          <SettingItem
-            label="แจ้งเตือนทั่วไป"
-            active={settings.general}
-            onToggle={() => toggleSetting("general")}
-          />
-          <SettingItem
-            label="แจ้งเตือนสิทธิพิเศษ"
-            active={settings.privilege}
-            onToggle={() => toggleSetting("privilege")}
-          />
-          <SettingItem
-            label="แจ้งเตือนข่าวสาร"
-            active={settings.news}
-            onToggle={() => toggleSetting("news")}
-          />
-          <SettingItem
-            label="แจ้งเตือนการอัปเดต"
-            active={settings.update}
-            onToggle={() => toggleSetting("update")}
-          />
-        </div>
-      </div>
+      <div className="flex-1 overflow-y-auto pb-8 no-scrollbar">
+        <NotificationContentContainer className="space-y-5">
+          <section className="space-y-5">
+            <SectionTitle title="รูปแบบการแจ้งเตือน" />
 
-      {/* Footer Nav */}
-      <div className="bg-white border-t border-gray-100 px-4 pt-3 pb-safe flex justify-between items-center z-40 shrink-0">
-        <div onClick={onBack} className="flex flex-col items-center justify-center w-[64px] cursor-pointer">
-          <div className="mb-1 text-gray-400">
-            <Home className="w-[26px] h-[26px]" />
-          </div>
-          <span className="text-[10px] font-bold text-gray-500 font-['Kanit']">หน้าหลัก</span>
-        </div>
-        <div className="flex flex-col items-center justify-center w-[64px] cursor-pointer">
-          <div className="mb-1 text-gray-400">
-            <Building2 className="w-[26px] h-[26px]" />
-          </div>
-          <span className="text-[10px] font-bold text-gray-500 font-['Kanit']">สถานที่ใช้ไฟ</span>
-        </div>
-        <div className="flex flex-col items-center justify-center w-[64px] cursor-pointer">
-          <div className="mb-1 text-gray-400">
-            <Settings2 className="w-[26px] h-[26px]" />
-          </div>
-          <span className="text-[10px] font-bold text-gray-500 font-['Kanit']">บริการ</span>
-        </div>
-        <div className="flex flex-col items-center justify-center w-[64px] cursor-pointer">
-          <div className="mb-1 text-gray-400">
-            <Zap className="w-[26px] h-[26px]" />
-          </div>
-          <span className="text-[10px] font-bold text-gray-500 font-['Kanit']">พอยต์</span>
-        </div>
-        <div className="flex flex-col items-center justify-center w-[64px] cursor-pointer">
-          <div className="mb-1 text-gray-400">
-            <User className="w-[26px] h-[26px]" />
-          </div>
-          <span className="text-[10px] font-bold text-gray-500 font-['Kanit']">โปรไฟล์</span>
-        </div>
-      </div>
+            <div className="bg-white px-5">
+              <SettingRow
+                title="แสดงบนหน้าจอล็อก"
+                description="เห็นการแจ้งเตือนบนหน้าจอเมื่อโทรศัพท์ล็อกอยู่"
+                checked={settings.showOnLockScreen}
+                onToggle={() => onToggleSetting("showOnLockScreen")}
+              />
+              <SettingRow
+                title="แสดงตัวอย่างข้อความ"
+                description="เห็นรายละเอียดข้อความบนหน้าจอล็อก หากปิดจะแสดงเพียงว่ามีการแจ้งเตือนเท่านั้น"
+                checked={settings.showPreviewText}
+                onToggle={() => onToggleSetting("showPreviewText")}
+                isLast
+              />
+            </div>
+          </section>
 
-      <style jsx>{`
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .pb-safe {
-          padding-bottom: max(env(safe-area-inset-bottom, 16px), 16px);
-        }
-      `}</style>
+          <section className="space-y-5">
+            <SectionTitle title="หมวดหมู่การแจ้งเตือน" />
+
+            <div className="bg-white px-5">
+              <SettingRow
+                title="แจ้งเตือนค่าไฟฟ้า"
+                description="แจ้งเตือนเมื่อได้มีบิลใหม่ ใกล้ครบกำหนดชำระ เลยกำหนดชำระ และแจ้งก่อน-หลังงดจ่ายไฟฟ้า"
+                note="การแจ้งเตือนนี้ไม่สามารถปิดได้ เพื่อให้คุณไม่พลาดข้อมูลสำคัญในการใช้บริการ"
+                checked={settings.bill}
+                disabled
+              />
+              <SettingRow
+                title="แจ้งเตือนบริการ"
+                description="รับข้อความแจ้งสถานะคำขอใช้บริการ รู้ทุกความเคลื่อนไหวเกี่ยวกับบริการ"
+                checked={settings.service}
+                onToggle={() => onToggleSetting("service")}
+              />
+              <SettingRow
+                title="แจ้งเตือนไฟฟ้าขัดข้อง/ประกาศดับไฟ"
+                description="รู้ทุกเหตุการณ์ไฟฟ้าดับในพื้นที่ของคุณ ทั้งแบบฉุกเฉิน และตามแผนดับไฟของ PEA"
+                checked={settings.outage}
+                onToggle={() => onToggleSetting("outage")}
+              />
+              <SettingRow
+                title="แจ้งเตือนข่าวสาร"
+                description="รับข่าวประชาสัมพันธ์ ประกาศ และสิทธิพิเศษจาก PEA"
+                checked={settings.news}
+                onToggle={() => onToggleSetting("news")}
+                isLast
+              />
+            </div>
+          </section>
+        </NotificationContentContainer>
+      </div>
     </div>
   );
 }
 
-function SettingItem({ label, active, onToggle }: { label: string; active: boolean; onToggle: () => void }) {
+function SectionTitle({ title }: { title: string }) {
   return (
-    <div className="flex items-center justify-between py-5 border-b border-gray-50 last:border-0">
-      <span className="text-[16px] font-semibold text-gray-800 font-['Kanit']">{label}</span>
-      <button
-        onClick={onToggle}
-        className={cn(
-          "w-12 h-6 rounded-full relative transition-colors duration-200 ease-in-out",
-          active ? "bg-[#9B2677]" : "bg-gray-200"
-        )}
-      >
-        <div
-          className={cn(
-            "absolute top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 ease-in-out",
-            active ? "left-7" : "left-1"
-          )}
-        />
-      </button>
+    <div className="px-5">
+      <h2 className="text-base font-semibold leading-6 text-[#667085]">{title}</h2>
+    </div>
+  );
+}
+
+interface SettingRowProps {
+  title: string;
+  description: string;
+  note?: string;
+  checked: boolean;
+  disabled?: boolean;
+  onToggle?: () => void;
+  isLast?: boolean;
+}
+
+function SettingRow({
+  title,
+  description,
+  note,
+  checked,
+  disabled = false,
+  onToggle,
+  isLast = false,
+}: SettingRowProps) {
+  return (
+    <div className={cn("flex items-start gap-4 py-4", !isLast && "border-b border-[#E4E7EC]")}>
+      <div className="min-w-0 flex-1">
+        <h3 className="text-base font-medium leading-6 text-[#101828]">{title}</h3>
+        <p className="mt-1 text-xs font-normal leading-4 text-[#667085]">{description}</p>
+        {note && <p className="mt-1 text-[10px] font-normal leading-4 text-[#667085]">{note}</p>}
+      </div>
+
+      <NotificationToggle checked={checked} disabled={disabled} onToggle={onToggle} ariaLabel={title} />
     </div>
   );
 }

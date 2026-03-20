@@ -8,55 +8,45 @@ interface ReviewViewProps {
   onReviewSubmit: () => void;
 }
 
-export default function ReviewView({
-  comment,
-  setComment,
-  onReviewSubmit,
-}: ReviewViewProps) {
+export default function ReviewView({ comment, setComment, onReviewSubmit }: ReviewViewProps) {
   return (
-    <div className="w-full h-full flex flex-col justify-start items-center bg-white overflow-hidden">
-      {/* Header Space (Mocking the UI snippet provided) */}
-      <div className="self-stretch flex-1 px-5 py-10 flex flex-col justify-start items-center gap-5">
-        <div className="self-stretch flex flex-col justify-start items-start gap-2">
-          <div className="text-[#101828] text-2xl font-medium font-['Kanit'] leading-8">
-            ประเมินรายละเอียดเพิ่มเติม
-          </div>
+    <div className="flex h-full w-full flex-col items-center justify-start overflow-hidden bg-white">
+      <div className="flex w-full flex-1 flex-col items-center justify-start gap-5 px-5 py-10 sm:px-8">
+        <div className="flex w-full max-w-[560px] flex-col items-start justify-start gap-2">
+          <div className="text-2xl font-medium leading-8 text-[#101828]">ประเมินรายละเอียดเพิ่มเติม</div>
         </div>
-        
-        {/* Textarea Container */}
-        <div className="self-stretch h-44 flex flex-col justify-start items-start gap-1.5">
-          <div className="self-stretch flex-1 flex flex-col justify-start items-start gap-1.5">
-            <div className="self-stretch flex-1 px-3.5 py-3 relative bg-white rounded-2xl shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] outline-[#D0D5DD] inline-flex justify-start items-start gap-2 overflow-hidden">
+
+        <div className="flex h-44 w-full max-w-[560px] flex-col items-start justify-start gap-1.5">
+          <div className="flex flex-1 w-full flex-col items-start justify-start gap-1.5">
+            <div className="relative inline-flex flex-1 w-full items-start justify-start gap-2 overflow-hidden rounded-2xl bg-white px-3.5 py-3 shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] outline-[#D0D5DD]">
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                placeholder="แบ่งปันประสบการณ์ของคุณกับเรา เพื่อพัฒนาบริการให้ดีขึ้น"
-                className="flex-1 self-stretch justify-start text-[#667085] text-base font-normal font-['Kanit'] leading-6 border-none focus:ring-0 resize-none bg-transparent"
+                placeholder="แบ่งปันประสบการณ์ของคุณกับเรา เพื่อพัฒนาบริการให้ดียิ่งขึ้น"
+                className="flex-1 self-stretch resize-none border-none bg-transparent text-base font-normal leading-6 text-[#667085] focus:ring-0"
               />
-              
-              {/* Resize/Decorative icons from snippet */}
-              <div className="w-3 h-3 absolute right-3 bottom-3 opacity-20 pointer-events-none">
-                <div className="w-2 h-2 left-[2px] top-[2px] absolute outline outline-1 outline-offset-[-0.50px] outline-[#D0D5DD]" />
-                <div className="w-1 h-1 left-[7px] top-[7px] absolute outline outline-1 outline-offset-[-0.50px] outline-[#D0D5DD]" />
+
+              <div className="pointer-events-none absolute bottom-3 right-3 h-3 w-3 opacity-20">
+                <div className="absolute left-[2px] top-[2px] h-2 w-2 outline outline-1 outline-offset-[-0.5px] outline-[#D0D5DD]" />
+                <div className="absolute left-[7px] top-[7px] h-1 w-1 outline outline-1 outline-offset-[-0.5px] outline-[#D0D5DD]" />
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Action Button Section */}
-      <div className="w-full pt-10 pb-12 bg-white flex flex-col justify-center items-start gap-8 px-5 border-t border-gray-50">
-        <div className="self-stretch flex flex-col justify-center items-start gap-5">
+      <div className="w-full border-t border-gray-50 bg-white px-5 pb-12 pt-8 sm:px-8">
+        <div className="mx-auto flex w-full max-w-[560px] flex-col items-start justify-center gap-5">
           <button
             onClick={onReviewSubmit}
             disabled={!comment.trim()}
-            className={`self-stretch px-5 py-4 rounded-full shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] inline-flex justify-center items-center gap-2.5 overflow-hidden transition-all active:scale-[0.98] ${
-              comment.trim() 
-                ? "bg-[#9B2677] outline-[#9B2677] text-white" 
-                : "bg-[#F2F4F7] outline-[#E4E7EC] text-[#98A1B2] cursor-not-allowed"
+            className={`inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-full px-5 py-4 shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] transition-all active:scale-[0.98] ${
+              comment.trim()
+                ? "bg-[#9B2677] text-white outline-[#9B2677]"
+                : "cursor-not-allowed bg-[#F2F4F7] text-[#98A1B2] outline-[#E4E7EC]"
             }`}
           >
-            <div className="text-xl font-medium font-['Kanit'] leading-7">ยืนยัน</div>
+            <div className="text-xl font-medium leading-7">ยืนยัน</div>
           </button>
         </div>
       </div>

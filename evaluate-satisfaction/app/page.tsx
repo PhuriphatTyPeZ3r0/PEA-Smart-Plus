@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import LoadingView from "../components/views/LoadingView";
 import HomeView from "../components/views/HomeView";
@@ -10,53 +10,73 @@ import SuccessView from "../components/views/SuccessView";
 import NotificationView from "../components/views/NotificationView";
 import NotificationSettingsView from "../components/views/NotificationSettingsView";
 import NotificationDetailView from "../components/views/NotificationDetailView";
+import {
+  DEFAULT_NOTIFICATION_SETTINGS,
+  INITIAL_NOTIFICATIONS,
+  type EditableNotificationSettingKey,
+  type NotificationItem,
+  type NotificationPreferences,
+} from "../components/views/notificationData";
 
-type ViewState = "loading" | "home" | "rating" | "review" | "success" | "notification" | "notification-settings" | "notification-detail";
+type ViewState =
+  | "loading"
+  | "home"
+  | "rating"
+  | "review"
+  | "success"
+  | "notification"
+  | "notification-settings"
+  | "notification-detail";
 
 interface ActiveQuestion {
   questionId: number;
   question: string;
 }
 
+const ACTIVE_QUESTION: ActiveQuestion = {
+  questionId: 999,
+  question: "คุณรู้สึกพึงพอใจกับประสบการณ์การใช้งาน PEA Smart Plus ครั้งนี้มากเพียงใด",
+};
+
+const MOCK_USER = {
+  id: "90",
+  idenNumber: "oPunVQb7OgaT3y6lyuUDrU+oCRct4OBM8kNgjGw=",
+  name: "คุณ ภูริพัฒน์ เหมกุล",
+  balance: "1,260.52",
+  ca: "020001234567",
+};
+
 export default function AppFlow() {
   const [view, setView] = useState<ViewState>("loading");
   const [selectedNotiId, setSelectedNotiId] = useState<string | null>(null);
+  const [notifications, setNotifications] = useState<NotificationItem[]>(INITIAL_NOTIFICATIONS);
+  const [notificationSettings, setNotificationSettings] =
+    useState<NotificationPreferences>(DEFAULT_NOTIFICATION_SETTINGS);
   const [rating, setRating] = useState<number>(0);
   const [hoverRating, setHoverRating] = useState<number>(0);
   const [comment, setComment] = useState<string>("");
   const [hasShownEvaluation, setHasShownEvaluation] = useState<boolean>(false);
-  const [activeQuestion] = useState<ActiveQuestion | null>({
-    questionId: 999,
-    question: "คุณรู้สึกพึงพอใจมากเพียงใดกับประสบการณ์การใช้งาน PEA Smart Plus ครั้งนี้"
-  });
 
-  // Mockup Data for UserAccId = 90
-  const mockUser = {
-    id: "90",
-    idenNumber: "oPunVQb7OgaT3y6lyuUDrU+oCRct4OBM8kNgjGw=",
-    name: "คุณ ภูริพัฒน์ เหมกุล",
-    balance: "1,260.52",
-    ca: "020001234567"
-  };
+  const selectedNotification = notifications.find((item) => item.id === selectedNotiId) ?? null;
 
   useEffect(() => {
-    localStorage.setItem("UserAccIdenNumber", mockUser.idenNumber);
+    localStorage.setItem("UserAccIdenNumber", MOCK_USER.idenNumber);
     localStorage.setItem("SetLanguage", "TH");
-    
-    // Initial loading simulation
+
     const timer = setTimeout(() => {
       setView("home");
     }, 2000);
-    
+
     return () => clearTimeout(timer);
-  }, [mockUser.idenNumber]);
+  }, []);
 
   useEffect(() => {
     if (view === "home" && !hasShownEvaluation) {
       const timer = setTimeout(() => {
         setHasShownEvaluation(true);
         setView("rating");
-      }, 1500); 
+      }, 1500);
+
       return () => clearTimeout(timer);
     }
   }, [view, hasShownEvaluation]);
@@ -77,90 +97,112 @@ export default function AppFlow() {
     setComment("");
   };
 
+  const handleOpenNotificationDetail = (id: string) => {
+    setNotifications((current) =>
+      current.map((item) => (item.id === id ? { ...item, isRead: true } : item))
+    );
+    setSelectedNotiId(id);
+    setView("notification-detail");
+  };
+
+  const handleMarkAllNotificationsAsRead = () => {
+    setNotifications((current) => current.map((item) => ({ ...item, isRead: true })));
+  };
+
+  const handleMarkNotificationsAsRead = (ids: string[]) => {
+    setNotifications((current) =>
+      current.map((item) => (ids.includes(item.id) ? { ...item, isRead: true } : item))
+    );
+  };
+
+  const handleDeleteNotifications = (ids: string[]) => {
+    setNotifications((current) => current.filter((item) => !ids.includes(item.id)));
+  };
+
+  const handleToggleNotificationSetting = (key: EditableNotificationSettingKey) => {
+    setNotificationSettings((current) => ({
+      ...current,
+      [key]: !current[key],
+    }));
+  };
+
   return (
-    <div className="min-h-[100dvh] bg-[#F1F5F9] flex items-center justify-center p-0 sm:p-4 font-sans text-slate-900 overflow-hidden">
-      {/* Main App Container */}
-      <div className="w-full max-w-[430px] h-[100dvh] sm:h-[92dvh] sm:max-h-[932px] bg-white sm:rounded-[48px] shadow-2xl overflow-hidden relative flex flex-col sm:border-[8px] sm:border-slate-800">
-        
+    <div className="flex min-h-[100dvh] items-center justify-center overflow-hidden bg-[#F1F5F9] p-0 font-sans text-slate-900 md:p-4 lg:p-6">
+      <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-white shadow-2xl md:mx-auto md:h-[calc(100dvh-2rem)] md:max-w-[820px] md:rounded-[40px] md:border-[6px] md:border-slate-800 lg:h-[calc(100dvh-3rem)] lg:max-w-[1180px] lg:border-0 xl:max-w-[1320px]">
         {view === "loading" && <LoadingView />}
 
         {view !== "loading" && (
-          <HomeView 
-            mockUser={mockUser} 
-            isActive={view === "home"} 
-            onOpenEvaluation={() => setView("rating")} 
+          <HomeView
+            mockUser={MOCK_USER}
+            isActive={view === "home"}
+            onOpenEvaluation={() => setView("rating")}
             onOpenNotifications={() => setView("notification")}
           />
         )}
 
         {view === "notification" && (
-          <div className="absolute inset-0 bg-white z-[50]">
-            <NotificationView 
+          <div className="absolute inset-0 z-[50] bg-white">
+            <NotificationView
+              notifications={notifications}
               onBack={() => setView("home")}
               onGoToSettings={() => setView("notification-settings")}
-              onGoToDetail={(id) => {
-                setSelectedNotiId(id);
-                setView("notification-detail");
-              }}
+              onGoToDetail={handleOpenNotificationDetail}
+              onMarkAllAsRead={handleMarkAllNotificationsAsRead}
+              onMarkNotificationsAsRead={handleMarkNotificationsAsRead}
+              onDeleteNotifications={handleDeleteNotifications}
             />
           </div>
         )}
 
         {view === "notification-settings" && (
-          <div className="absolute inset-0 bg-white z-[50]">
-            <NotificationSettingsView 
+          <div className="absolute inset-0 z-[50] bg-white">
+            <NotificationSettingsView
+              settings={notificationSettings}
               onBack={() => setView("notification")}
+              onToggleSetting={handleToggleNotificationSetting}
             />
           </div>
         )}
 
         {view === "notification-detail" && (
-          <div className="absolute inset-0 bg-white z-[50]">
-            <NotificationDetailView 
-              id={selectedNotiId || "1"}
-              onBack={() => setView("notification")}
-            />
+          <div className="absolute inset-0 z-[50] bg-white">
+            <NotificationDetailView notification={selectedNotification} onBack={() => setView("notification")} />
           </div>
         )}
 
         {(view === "rating" || view === "review" || view === "success") && (
-          <div className="absolute inset-0 bg-black/40 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-6 transition-opacity duration-300">
-            {/* Click outside to close (optional, but good for UX) */}
-            <div className="absolute inset-0" onClick={handleClose}></div>
-            
-            <div className="w-full max-w-[430px] h-[88dvh] sm:h-auto sm:max-h-[720px] bg-white rounded-t-[40px] sm:rounded-[40px] shadow-2xl overflow-hidden relative flex flex-col animate-slide-in-bottom">
-              {/* Drag Handle for Mobile feel */}
-              <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mt-4 mb-2 shrink-0 sm:hidden"></div>
-              
-              <button 
-                onClick={handleClose}
-                className="absolute top-6 left-6 z-10 w-9 h-9 rounded-full flex items-center justify-center bg-slate-50 hover:bg-slate-100 active:scale-90 transition-all border border-slate-100 shadow-sm"
-              >
-                <Image src="/asset/icons/evaluate-satisfaction-icon/x-close.svg" alt="Close" width={12} height={12} className="opacity-60" />
-              </button>
+          <div className="absolute inset-0 z-[100] bg-white">
+            <button
+              type="button"
+              onClick={handleClose}
+              className="absolute left-6 top-6 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-slate-100 bg-slate-50 shadow-sm transition-all hover:bg-slate-100 active:scale-90"
+            >
+              <Image
+                src="/asset/icons/evaluate-satisfaction-icon/x-close.svg"
+                alt="Close"
+                width={12}
+                height={12}
+                className="opacity-60"
+              />
+            </button>
 
-              {view === "rating" && (
-                <RatingView 
-                  activeQuestion={activeQuestion}
-                  rating={rating}
-                  hoverRating={hoverRating}
-                  setRating={setRating}
-                  setHoverRating={setHoverRating}
-                  onRatingSubmit={handleRatingSubmit}
-                  onGoToReview={() => setView("review")}
-                />
-              )}
+            {view === "rating" && (
+              <RatingView
+                activeQuestion={ACTIVE_QUESTION}
+                rating={rating}
+                hoverRating={hoverRating}
+                setRating={setRating}
+                setHoverRating={setHoverRating}
+                onRatingSubmit={handleRatingSubmit}
+                onGoToReview={() => setView("review")}
+              />
+            )}
 
-              {view === "review" && (
-                <ReviewView 
-                  comment={comment}
-                  setComment={setComment}
-                  onReviewSubmit={handleReviewSubmit}
-                />
-              )}
+            {view === "review" && (
+              <ReviewView comment={comment} setComment={setComment} onReviewSubmit={handleReviewSubmit} />
+            )}
 
-              {view === "success" && <SuccessView onClose={handleClose} />}
-            </div>
+            {view === "success" && <SuccessView onClose={handleClose} />}
           </div>
         )}
       </div>

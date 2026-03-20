@@ -1,301 +1,289 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronLeft, Settings, CheckCheck, Bell, Gift, Trash2, Home, Building2, Settings2, Zap, User } from "lucide-react";
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import Image from "next/image";
+import { CheckCheck, ChevronRight, Pencil, Trash2, X } from "lucide-react";
+import type { NotificationCategory, NotificationItem } from "./notificationData";
+import { NOTIFICATION_CATEGORY_LABELS } from "./notificationData";
+import {
+  NotificationContentContainer,
+  NotificationHeader,
+  NotificationStatusBar,
+  NotificationTypeIcon,
+  cn,
+} from "./notificationShared";
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+type NotificationFilter = "all" | NotificationCategory;
 
-interface Notification {
-  id: string;
-  type: "system" | "privilege";
-  title: string;
-  description: string;
-  date: string;
-  isRead: boolean;
-  icon: string;
-}
-
-const MOCK_NOTIFICATIONS: Notification[] = [
-  {
-    id: "1",
-    type: "system",
-    title: "ยืนยันการลงทะเบียนสำเร็จ",
-    description: "ยินดีด้วย คุณได้ยืนยันตัวตนสำเร็จแล้ว",
-    date: "14 ต.ค. 2568, 10:30 น.",
-    isRead: false,
-    icon: "bell",
-  },
-  {
-    id: "2",
-    type: "system",
-    title: "แจ้งยอดค้างชำระ",
-    description: "กรุณาชำระค่าไฟฟ้าภายในวันที่ 28 ก.ย. 2568",
-    date: "10 ต.ค. 2568, 08:15 น.",
-    isRead: true,
-    icon: "bell",
-  },
-  {
-    id: "3",
-    type: "privilege",
-    title: "สิทธิพิเศษสำหรับคุณ!",
-    description: "รับส่วนลดค่าชาร์จรถไฟฟ้า PEA VOLTA 20 บาท",
-    date: "12 ต.ค. 2568, 14:00 น.",
-    isRead: false,
-    icon: "gift",
-  },
+const FILTERS: Array<{ key: NotificationFilter; label: string }> = [
+  { key: "all", label: "ทั้งหมด" },
+  { key: "bill", label: "ค่าไฟฟ้า" },
+  { key: "service", label: "บริการ" },
+  { key: "outage", label: "ไฟฟ้าขัดข้อง" },
+  { key: "news", label: "ข่าวสาร" },
 ];
 
 interface NotificationViewProps {
+  notifications: NotificationItem[];
   onBack: () => void;
   onGoToSettings: () => void;
   onGoToDetail: (id: string) => void;
+  onMarkAllAsRead: () => void;
+  onMarkNotificationsAsRead: (ids: string[]) => void;
+  onDeleteNotifications: (ids: string[]) => void;
 }
 
-export default function NotificationView({ onBack, onGoToSettings, onGoToDetail }: NotificationViewProps) {
-  const [activeTab, setActiveTab] = useState<"system" | "privilege">("system");
-  const [notifications, setNotifications] = useState<Notification[]>(MOCK_NOTIFICATIONS);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showReadAllModal, setShowReadAllModal] = useState(false);
-  const [selectedNoti, setSelectedNoti] = useState<string | null>(null);
+export default function NotificationView({
+  notifications,
+  onBack,
+  onGoToSettings,
+  onGoToDetail,
+  onMarkAllAsRead,
+  onMarkNotificationsAsRead,
+  onDeleteNotifications,
+}: NotificationViewProps) {
+  const [activeFilter, setActiveFilter] = useState<NotificationFilter>("all");
+  const [showEditMenu, setShowEditMenu] = useState(false);
+  const [isSelectionMode, setIsSelectionMode] = useState(false);
+  const [selectionAction, setSelectionAction] = useState<"read" | "delete" | null>(null);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
-  const filteredNotifications = notifications.filter((n) => n.type === activeTab);
-  const hasUnreadSystem = notifications.some((n) => n.type === "system" && !n.isRead);
-  const hasUnreadPrivilege = notifications.some((n) => n.type === "privilege" && !n.isRead);
+  const filteredNotifications =
+    activeFilter === "all"
+      ? notifications
+      : notifications.filter((notification) => notification.category === activeFilter);
 
-  const handleReadAll = () => {
-    setShowReadAllModal(true);
+  const hasUnreadNotifications = notifications.some((notification) => !notification.isRead);
+
+  const handleEnterReadMode = () => {
+    setIsSelectionMode(true);
+    setSelectionAction("read");
+    setShowEditMenu(false);
+    setSelectedIds(new Set());
   };
 
-  const confirmReadAll = () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
-    setShowReadAllModal(false);
+  const handleEnterDeleteMode = () => {
+    setIsSelectionMode(true);
+    setSelectionAction("delete");
+    setShowEditMenu(false);
+    setSelectedIds(new Set());
   };
 
-  const handleDelete = (id: string) => {
-    setSelectedNoti(id);
-    setShowDeleteModal(true);
-  };
-
-  const confirmDelete = () => {
-    if (selectedNoti) {
-      setNotifications((prev) => prev.filter((n) => n.id !== selectedNoti));
-      setShowDeleteModal(false);
-      setSelectedNoti(null);
+  const handleToggleSelection = (id: string) => {
+    const newSelected = new Set(selectedIds);
+    if (newSelected.has(id)) {
+      newSelected.delete(id);
+    } else {
+      newSelected.add(id);
     }
+    setSelectedIds(newSelected);
+  };
+
+  const handleConfirmSelection = () => {
+    if (selectionAction === "delete") {
+      onDeleteNotifications(Array.from(selectedIds));
+    } else if (selectionAction === "read") {
+      onMarkNotificationsAsRead(Array.from(selectedIds));
+    }
+    setIsSelectionMode(false);
+    setSelectionAction(null);
+    setSelectedIds(new Set());
+  };
+
+  const handleCancelSelection = () => {
+    setIsSelectionMode(false);
+    setSelectionAction(null);
+    setSelectedIds(new Set());
   };
 
   return (
-    <div className="flex-1 flex flex-col bg-white overflow-hidden animate-slide-in-right h-full">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-[#9B2677] to-[#df338d] pt-12 pb-4 px-4 relative shrink-0">
-        <div className="flex items-center justify-between text-white">
-          <button onClick={onBack} className="p-1 hover:opacity-80 transition-opacity active:scale-90">
-            <ChevronLeft className="w-7 h-7" />
-          </button>
-          <h1 className="text-[19px] font-bold font-['Kanit']">การแจ้งเตือน</h1>
-          <div className="flex items-center gap-2">
-            <button onClick={handleReadAll} className="p-1 hover:opacity-80 transition-opacity active:scale-90">
-              <CheckCheck className="w-[22px] h-[22px]" />
-            </button>
-            <button onClick={onGoToSettings} className="p-1 hover:opacity-80 transition-opacity active:scale-90">
-              <Settings className="w-[22px] h-[22px]" />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Tabs */}
-      <div className="flex border-b border-gray-100 bg-white shrink-0">
-        <button
-          onClick={() => setActiveTab("system")}
-          className={cn(
-            "flex-1 py-4 text-[15px] font-bold relative transition-colors font-['Kanit']",
-            activeTab === "system" ? "text-[#9B2677]" : "text-gray-400"
-          )}
-        >
-          ทั่วไป
-          {hasUnreadSystem && (
-            <span className="absolute top-4 ml-1 w-2 h-2 bg-pink-500 rounded-full border border-white" />
-          )}
-          {activeTab === "system" && <span className="absolute bottom-0 left-0 right-0 h-1 bg-[#9B2677]" />}
-        </button>
-        <button
-          onClick={() => setActiveTab("privilege")}
-          className={cn(
-            "flex-1 py-4 text-[15px] font-bold relative transition-colors font-['Kanit']",
-            activeTab === "privilege" ? "text-[#9B2677]" : "text-gray-400"
-          )}
-        >
-          สิทธิพิเศษ
-          {hasUnreadPrivilege && (
-            <span className="absolute top-4 ml-1 w-2 h-2 bg-pink-500 rounded-full border border-white" />
-          )}
-          {activeTab === "privilege" && <span className="absolute bottom-0 left-0 right-0 h-1 bg-[#9B2677]" />}
-        </button>
-      </div>
-
-      {/* Notification List */}
-      <div className="flex-1 overflow-y-auto no-scrollbar bg-gray-50/50">
-        {filteredNotifications.length > 0 ? (
-          <div className="divide-y divide-gray-100 pb-20">
-            {filteredNotifications.map((noti) => (
-              <div
-                key={noti.id}
+    <div className="relative flex h-full flex-col overflow-hidden bg-white animate-slide-in-right">
+      <NotificationStatusBar />
+      <NotificationHeader
+        title={isSelectionMode ? `เลือกรายการ (${selectedIds.size})` : "การแจ้งเตือน"}
+        onBack={isSelectionMode ? handleCancelSelection : onBack}
+        rightActions={
+          !isSelectionMode ? (
+            <>
+              <button
+                type="button"
+                onClick={() => setShowEditMenu(!showEditMenu)}
+                aria-label="แก้ไข"
                 className={cn(
-                  "p-4 flex gap-4 transition-colors relative group",
-                  !noti.isRead ? "bg-white" : "bg-transparent"
+                  "flex h-10 w-10 items-center justify-center rounded-full transition active:scale-95",
+                  showEditMenu
+                    ? "bg-[#FEEBFB] text-[#A80689]"
+                    : "text-[#A80689] hover:bg-[#FEEBFB]"
                 )}
               >
-                <div onClick={() => onGoToDetail(noti.id)} className="flex gap-4 flex-1 min-w-0 cursor-pointer">
-                  <div
-                    className={cn(
-                      "w-12 h-12 rounded-full shrink-0 flex items-center justify-center",
-                      noti.type === "system" ? "bg-purple-50 text-[#9B2677]" : "bg-pink-50 text-pink-500"
-                    )}
-                  >
-                    {noti.icon === "gift" ? <Gift className="w-6 h-6" /> : <Bell className="w-6 h-6" />}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-start mb-1">
-                      <h4
+                <Pencil className="h-5 w-5" strokeWidth={2} />
+              </button>
+              <button
+                type="button"
+                onClick={onGoToSettings}
+                aria-label="ตั้งค่าการแจ้งเตือน"
+                className="flex h-10 w-10 items-center justify-center rounded-full text-[#A80689] transition hover:bg-[#FEEBFB] active:scale-95"
+              >
+                <Image src="/images/setting.svg" alt="Settings" width={20} height={20} className="h-5 w-5" />
+              </button>
+            </>
+          ) : (
+            <button
+              type="button"
+              onClick={handleCancelSelection}
+              className="text-[#A80689] text-base font-medium hover:underline"
+            >
+              ยกเลิก
+            </button>
+          )
+        }
+      />
+      {showEditMenu && !isSelectionMode && (
+        <div className="absolute left-0 bottom-0 z-50 inline-flex w-full flex-col items-start justify-center gap-8 bg-white pb-12 pt-6 shadow-[0px_12px_24px_-4px_rgba(145,158,171,0.12)] shadow-[0px_0px_2px_0px_rgba(145,158,171,0.20)] animate-slide-in-bottom">
+          <div className="inline-flex items-center justify-start gap-5 self-stretch px-5">
+            <button
+              onClick={handleEnterReadMode}
+              className="flex flex-1 items-center justify-center gap-2.5 overflow-hidden rounded-full bg-[#FEEBFB] px-5 py-4 shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] shadow-[inset_0px_-2px_0px_0px_rgba(16,24,40,0.05)] shadow-[inset_0px_0px_0px_1px_rgba(16,24,40,0.18)] outline outline-2 outline-offset-[-2px] outline-[#A80689]"
+            >
+              <div className="flex items-center justify-center px-0.5">
+                <div className="justify-start font-['Kanit'] text-xl font-medium leading-7 text-[#A80689]">อ่าน</div>
+              </div>
+            </button>
+            <button
+              onClick={handleEnterDeleteMode}
+              className="flex flex-1 items-center justify-center gap-2.5 overflow-hidden rounded-full bg-[#A80689] px-5 py-4 shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] shadow-[inset_0px_-2px_0px_0px_rgba(16,24,40,0.05)] shadow-[inset_0px_0px_0px_1px_rgba(16,24,40,0.18)] outline outline-2 outline-offset-[-2px] outline-white/10"
+            >
+              <div className="flex items-center justify-center px-0.5">
+                <div className="justify-start font-['Kanit'] text-xl font-medium leading-7 text-white">ลบ</div>
+              </div>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {!isSelectionMode && (
+        <NotificationContentContainer className="overflow-x-auto no-scrollbar px-5 pb-4">
+          <div className="flex w-max items-center gap-2">
+            {FILTERS.map((filter) => {
+              const isActive = filter.key === activeFilter;
+
+              return (
+                <button
+                  key={filter.key}
+                  type="button"
+                  onClick={() => setActiveFilter(filter.key)}
+                  className={cn(
+                    "rounded-full border px-3 py-1.5 text-base font-semibold leading-6 transition active:scale-95",
+                    isActive
+                      ? "border-[#FED8F6] bg-[#A80689] text-white shadow-[0px_8px_20px_rgba(168,6,137,0.16)]"
+                      : "border-[#E4E7EC] bg-white text-[#344054] hover:border-[#D0D5DD]"
+                  )}
+                >
+                  {filter.label}
+                </button>
+              );
+            })}
+          </div>
+        </NotificationContentContainer>
+      )}
+      <div className="flex-1 overflow-y-auto bg-white no-scrollbar pb-20">
+        <NotificationContentContainer>
+          {filteredNotifications.length > 0 ? (
+            <div>
+              {filteredNotifications.map((notification) => (
+                <div
+                  key={notification.id}
+                  className={cn(
+                    "flex w-full items-center gap-3 border-b border-[#E4E7EC] px-5 py-4 text-left transition",
+                    !isSelectionMode && "hover:bg-[#F9FAFB] active:scale-[0.995] cursor-pointer"
+                  )}
+                  onClick={() => {
+                    if (isSelectionMode) {
+                      handleToggleSelection(notification.id);
+                    } else {
+                      onGoToDetail(notification.id);
+                    }
+                  }}
+                >
+                  {isSelectionMode && (
+                    <div className="shrink-0 pr-2">
+                      <div
                         className={cn(
-                          "text-[15px] leading-tight truncate pr-4 font-['Kanit']",
-                          !noti.isRead ? "font-bold text-gray-900" : "font-medium text-gray-600"
+                          "h-5 w-5 rounded border flex items-center justify-center transition-colors",
+                          selectedIds.has(notification.id)
+                            ? "bg-[#A80689] border-[#A80689]"
+                            : "bg-white border-[#D0D5DD]"
                         )}
                       >
-                        {noti.title}
-                      </h4>
-                      {!noti.isRead && <div className="w-2.5 h-2.5 bg-pink-500 rounded-full mt-1 shrink-0" />}
+                        {selectedIds.has(notification.id) && <CheckCheck className="h-3.5 w-3.5 text-white" />}
+                      </div>
                     </div>
-                    <p className="text-[13px] text-gray-500 leading-snug line-clamp-2 mb-2 font-['Kanit']">
-                      {noti.description}
-                    </p>
-                    <span className="text-[11px] text-gray-400 font-medium font-['Kanit']">{noti.date}</span>
+                  )}
+
+                  <NotificationTypeIcon category={notification.category} unread={!notification.isRead} />
+
+                  <div className="min-w-0 flex-1">
+                    <div className="mb-2 flex items-start justify-between gap-3">
+                      <span className="text-xs font-medium leading-4 text-[#101828]">
+                        {NOTIFICATION_CATEGORY_LABELS[notification.category]}
+                      </span>
+                      <span className="shrink-0 text-[10px] font-normal leading-4 text-[#667085]">
+                        {notification.date}
+                      </span>
+                    </div>
+
+                    <div className="space-y-1">
+                      <div
+                        className="text-sm font-semibold leading-4 text-[#101828]"
+                        style={{
+                          display: "-webkit-box",
+                          overflow: "hidden",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 2,
+                        }}
+                      >
+                        {notification.title}
+                      </div>
+                      <p
+                        className="text-xs font-normal leading-4 text-[#667085]"
+                        style={{
+                          display: "-webkit-box",
+                          overflow: "hidden",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 2,
+                        }}
+                      >
+                        {notification.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <button
-                  onClick={() => handleDelete(noti.id)}
-                  className="p-2 text-gray-400 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center h-[60%] px-10 text-center">
-            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-              <Bell className="w-10 h-10 text-gray-300" />
+              ))}
             </div>
-            <h3 className="text-lg font-bold text-gray-800 mb-2 font-['Kanit']">ยังไม่มีการแจ้งเตือน</h3>
-            <p className="text-sm text-gray-500 leading-relaxed font-['Kanit']">
-              เราจะแจ้งให้คุณทราบเมื่อมีข่าวสาร
-              <br />
-              หรือการอัปเดตใหม่ๆ
-            </p>
-          </div>
-        )}
+          ) : (
+            <div className="flex h-64 items-center justify-center text-sm text-[#667085]">ไม่มีข้อมูลการแจ้งเตือน</div>
+          )}
+        </NotificationContentContainer>
       </div>
 
-      {/* Footer Nav - Shared with main app */}
-      <div className="bg-white border-t border-gray-100 px-4 pt-3 pb-safe flex justify-between items-center z-40 shrink-0">
-        <div onClick={onBack} className="flex flex-col items-center justify-center w-[64px] cursor-pointer">
-          <div className="mb-1 text-gray-400">
-            <Home className="w-[26px] h-[26px]" />
-          </div>
-          <span className="text-[10px] font-bold text-gray-500 font-['Kanit']">หน้าหลัก</span>
-        </div>
-        <div className="flex flex-col items-center justify-center w-[64px] cursor-pointer">
-          <div className="mb-1 text-gray-400">
-            <Building2 className="w-[26px] h-[26px]" />
-          </div>
-          <span className="text-[10px] font-bold text-gray-500 font-['Kanit']">สถานที่ใช้ไฟ</span>
-        </div>
-        <div className="flex flex-col items-center justify-center w-[64px] cursor-pointer">
-          <div className="mb-1 text-gray-400">
-            <Settings2 className="w-[26px] h-[26px]" />
-          </div>
-          <span className="text-[10px] font-bold text-gray-500 font-['Kanit']">บริการ</span>
-        </div>
-        <div className="flex flex-col items-center justify-center w-[64px] cursor-pointer">
-          <div className="mb-1 text-gray-400">
-            <Zap className="w-[26px] h-[26px]" />
-          </div>
-          <span className="text-[10px] font-bold text-gray-500 font-['Kanit']">พอยต์</span>
-        </div>
-        <div className="flex flex-col items-center justify-center w-[64px] cursor-pointer">
-          <div className="mb-1 text-gray-400">
-            <User className="w-[26px] h-[26px]" />
-          </div>
-          <span className="text-[10px] font-bold text-gray-500 font-['Kanit']">โปรไฟล์</span>
-        </div>
-      </div>
-
-      {/* Modals */}
-      {showDeleteModal && (
-        <div className="absolute inset-0 z-[200] flex items-center justify-center bg-black/40 px-6 backdrop-blur-sm">
-          <div className="bg-white rounded-[24px] w-full max-w-[300px] p-6 shadow-xl animate-in zoom-in-95 duration-200">
-            <h3 className="text-[17px] font-bold text-gray-900 text-center mb-2 font-['Kanit']">ยืนยันการลบ?</h3>
-            <p className="text-sm text-gray-500 text-center mb-6 font-['Kanit']">คุณต้องการลบการแจ้งเตือนนี้ใช่หรือไม่?</p>
-            <div className="flex gap-3">
-              <button
-                onClick={() => setShowDeleteModal(false)}
-                className="flex-1 py-3 text-[15px] font-semibold text-gray-500 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors font-['Kanit']"
-              >
-                ยกเลิก
-              </button>
-              <button
-                onClick={confirmDelete}
-                className="flex-1 py-3 text-[15px] font-semibold text-white bg-red-500 rounded-full hover:bg-red-600 transition-colors font-['Kanit']"
-              >
-                ลบออก
-              </button>
-            </div>
-          </div>
+      {isSelectionMode && selectedIds.size > 0 && (
+        <div className="absolute bottom-0 left-0 right-0 z-40 bg-white p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] animate-slide-in-bottom">
+          <button
+            onClick={handleConfirmSelection}
+            className={cn(
+              "w-full flex items-center justify-center gap-2 rounded-full py-3 text-white shadow-sm transition active:scale-95",
+              selectionAction === "delete"
+                ? "bg-[#D92C20] hover:bg-[#B42318]"
+                : "bg-[#A80689] hover:bg-[#8B0571]"
+            )}
+          >
+            {selectionAction === "delete" ? <Trash2 className="h-5 w-5" /> : <ChevronRight className="h-5 w-5" />}
+            <span className="text-lg font-medium">
+              {selectionAction === "delete" ? "ลบ" : "อ่าน"} ({selectedIds.size}) รายการ
+            </span>
+          </button>
         </div>
       )}
-
-      {showReadAllModal && (
-        <div className="absolute inset-0 z-[200] flex items-center justify-center bg-black/40 px-6 backdrop-blur-sm">
-          <div className="bg-white rounded-[24px] w-full max-w-[300px] p-6 shadow-xl animate-in zoom-in-95 duration-200">
-            <h3 className="text-[17px] font-bold text-gray-900 text-center mb-2 font-['Kanit']">อ่านทั้งหมด?</h3>
-            <p className="text-sm text-gray-500 text-center mb-6 font-['Kanit']">
-              ต้องการทำเครื่องหมายว่าอ่านแล้วทั้งหมดใช่หรือไม่?
-            </p>
-            <div className="flex gap-3">
-              <button
-                onClick={() => setShowReadAllModal(false)}
-                className="flex-1 py-3 text-[15px] font-semibold text-gray-500 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors font-['Kanit']"
-              >
-                ยกเลิก
-              </button>
-              <button
-                onClick={confirmReadAll}
-                className="flex-1 py-3 text-[15px] font-semibold text-white bg-[#9B2677] rounded-full hover:bg-[#851e65] transition-colors font-['Kanit']"
-              >
-                ยืนยัน
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <style jsx>{`
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .pb-safe {
-          padding-bottom: max(env(safe-area-inset-bottom, 16px), 16px);
-        }
-      `}</style>
     </div>
   );
 }
