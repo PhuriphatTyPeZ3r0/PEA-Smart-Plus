@@ -1,5 +1,9 @@
 import React from "react";
 import Image from "next/image";
+import AccountSummaryCard from "../AccountSummaryCard";
+import FoundNewCACard from "../FoundNewCACard";
+import PrivilegeCard from "../PrivilegeCard";
+import RecommendedServiceCard from "../RecommendedServiceCard";
 
 interface HomeViewProps {
   mockUser: {
@@ -15,11 +19,12 @@ interface HomeViewProps {
 
 export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeViewProps) {
   return (
-    <div className={`flex-1 flex flex-col bg-white relative h-full overflow-hidden ${!isActive ? "pointer-events-none" : "animate-zoom-in"}`}>
+    <div className={`flex-1 flex flex-col bg-[#F8FAFC] relative h-full overflow-hidden ${!isActive ? "pointer-events-none" : "animate-zoom-in"}`}>
       {/* Scrollable Content Area */}
-      <div className="flex-1 overflow-y-auto no-scrollbar pb-[100px]">
-        {/* Header Section */}
-        <div className="relative w-full h-[320px] shrink-0 overflow-hidden">
+      <div className="flex-1 overflow-y-auto no-scrollbar pb-[120px]">
+        
+        {/* Header Section with Personalized Greeting */}
+        <div className="relative w-full h-[220px] xs:h-[240px] shrink-0 overflow-hidden">
           <Image 
             src="/asset/home-img/Rectangle 2.png" 
             alt="Header Bg" 
@@ -28,128 +33,114 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeV
             className="object-cover rounded-b-[48px]"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-transparent"></div>
           
-          {/* Content on Header */}
-          <div className="relative z-10 pt-safe-top">
-            <div className="px-6 flex justify-between items-center mb-8 mt-4">
-              <Image 
-                src="/asset/icons/home-icon/Logo - Flat Logo w TH Motto - Main 2.svg" 
-                alt="PEA Logo" 
-                width={140} 
-                height={50}
-                className="h-10 w-auto"
-              />
+          <div className="relative z-10 pt-10 xs:pt-12 px-6">
+            {/* User Greeting Area */}
+            <div className="flex justify-between items-center">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center relative backdrop-blur-md border border-white/20 shadow-inner">
-                  <Image src="/asset/icons/home-icon/bell-01.svg" alt="Notifications" width={22} height={22} className="brightness-0 invert" />
-                  <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border border-[#7B2CBF]"></span>
+                <div className="w-12 h-12 xs:w-14 xs:h-14 rounded-full border-[0.75px] border-white/20 p-0.5 overflow-hidden">
+                  <Image src="/asset/home-img/Profile GitHub.png" alt="Profile" width={56} height={56} className="rounded-full object-cover" />
                 </div>
-                <div className="w-10 h-10 rounded-full border-2 border-white/30 overflow-hidden bg-white/10 backdrop-blur-sm shadow-inner">
-                  <Image src="/asset/home-img/Profile GitHub.png" alt="User Avatar" width={40} height={40} className="object-cover" />
+                <div className="flex flex-col">
+                  <span className="text-white/80 text-sm xs:text-base font-medium font-['Kanit'] leading-5">สวัสดี</span>
+                  <span className="text-white text-base xs:text-lg font-semibold font-['Kanit'] leading-6">{mockUser.name}</span>
                 </div>
               </div>
-            </div>
-
-            <div className="px-6">
-              <div className="flex justify-between items-end">
-                <div>
-                  <p className="text-white/80 text-[13px] font-medium mb-1">สวัสดีตอนเช้า</p>
-                  <p className="text-white font-bold text-[24px] tracking-tight leading-tight">{mockUser.name}</p>
-                </div>
-                <button className="flex items-center gap-2 bg-white/15 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 active:scale-95 transition-all shadow-sm">
-                   <Image src="/asset/icons/home-icon/Buttons/switch-horizontal-01.svg" alt="Switch" width={16} height={16} className="brightness-0 invert" />
-                   <span className="text-white text-[11px] font-bold">สลับบัญชี</span>
-                </button>
+              <div className="w-9 h-9 xs:w-10 xs:h-10 rounded-full bg-white/15 flex items-center justify-center relative backdrop-blur-lg border border-white/30 active:scale-90 transition-transform cursor-pointer">
+                <Image src="/asset/icons/home-icon/bell-01.svg" alt="Notifications" width={20} height={20} className="brightness-0 invert" />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Floating Balance Card */}
-        <div className="px-6 -mt-28 relative z-20 shrink-0">
-          <div className="bg-white rounded-[32px] p-6 shadow-[0_20px_60px_-15px_rgba(123,44,191,0.18)] border border-purple-50/50">
-            <div className="flex justify-between items-start mb-6">
-              <div>
-                <p className="text-slate-400 text-[12px] font-bold uppercase tracking-wider mb-2">ยอดค้างชำระทั้งหมด</p>
-                <div className="flex items-baseline gap-1">
-                   <span className="text-slate-900 text-[38px] font-black tracking-tighter">฿ {mockUser.balance}</span>
-                </div>
-              </div>
-              <button className="bg-[#7B2CBF] text-white px-7 py-3.5 rounded-2xl text-[16px] font-black shadow-[0_8px_20px_-4px_rgba(123,44,191,0.3)] active:scale-95 transition-all">
-                จ่ายบิล
-              </button>
-            </div>
-            <div className="h-[1px] bg-slate-100 w-full mb-5"></div>
-            <div className="flex justify-between items-center">
-               <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-purple-50 flex items-center justify-center">
-                     <img src="/asset/icons/home-icon/Vector.svg" alt="" className="w-4 h-4" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-slate-400 text-[10px] font-bold uppercase tracking-tight">เลขอ้างอิง</span>
-                    <span className="text-slate-600 text-[13px] font-bold tabular-nums">{mockUser.ca}</span>
-                  </div>
-               </div>
-               <div className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-slate-50 transition-colors">
-                  <Image src="/asset/icons/home-icon/end icon.svg" alt="More" width={18} height={18} />
-               </div>
-            </div>
-          </div>
+        {/* Account Summary Card */}
+        <div className="px-5 -mt-16 xs:-mt-20 relative z-20 shrink-0">
+          <AccountSummaryCard
+            accountName="บ้านแห่งความสุข"
+            accountNumber={mockUser.ca}
+            balance={mockUser.balance}
+            dueDate="28 ก.ย. 2568"
+            onPayBill={() => {}}
+            onSwitchAccount={() => {}}
+          />
+        </div>
+
+        {/* Notification: Found New CA */}
+        <div className="px-5 mt-4 shrink-0">
+          <FoundNewCACard count={1} />
         </div>
 
         {/* Quick Actions Grid */}
         <div className="px-6 mt-10 mb-10 shrink-0">
-          <div className="grid grid-cols-4 gap-x-4 gap-y-10">
+          <div className="grid grid-cols-4 gap-x-2 gap-y-10">
              {[
                { label: "ดูและจ่ายบิล", icon: "ดูและจ่ายบิล.svg" },
                { label: "ดูการใช้ไฟ", icon: "ดูการใช้ไฟ.svg" },
                { label: "แจ้งไฟดับ", icon: "แจ้งไฟดับ 2.svg" },
                { label: "ดูเพิ่มเติม", icon: "ดูเพิ่มเติม.svg" }
              ].map((item, i) => (
-               <div key={i} className="flex flex-col items-center gap-2.5 group cursor-pointer">
-                  <div className="w-[66px] h-[66px] rounded-[24px] bg-white shadow-[0_12px_24px_-8px_rgba(0,0,0,0.08)] border border-slate-50/50 flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1.5 group-hover:bg-purple-50/30 active:scale-90">
-                    {item.icon ? (
-                      <Image 
-                        src={`/asset/icons/home-icon/${item.icon}`} 
-                        alt={item.label} 
-                        width={34} 
-                        height={34}
-                        className="w-8.5 h-8.5 object-contain"
-                      />
-                    ) : (
-                      <div className="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center">
-                        <span className="text-slate-300 text-xl font-black">?</span>
-                      </div>
-                    )}
+               <div key={i} className="flex flex-col items-center gap-3 group cursor-pointer min-w-0">
+                  <div className="w-full max-w-[68px] aspect-square rounded-[24px] bg-white shadow-[0_10px_20px_-8px_rgba(0,0,0,0.06)] border border-slate-50 flex items-center justify-center transition-all duration-500 group-hover:shadow-xl group-hover:-translate-y-2 group-hover:bg-purple-50/20 active:scale-90">
+                    <Image 
+                      src={`/asset/icons/home-icon/${item.icon}`} 
+                      alt={item.label} 
+                      width={36} 
+                      height={36}
+                      className="w-1/2 h-1/2 object-contain"
+                    />
                   </div>
-                  <span className="text-[11px] text-slate-600 font-bold text-center leading-[1.3] px-0.5 group-hover:text-[#7B2CBF] transition-colors">{item.label}</span>
+                  <span className="text-[11px] text-[#344054] font-medium text-center leading-[1.3] px-0.5 group-hover:text-[#74045F] transition-colors line-clamp-2 min-h-[2.6em] font-['Kanit']">{item.label}</span>
                </div>
              ))}
           </div>
         </div>
 
-        {/* Banner Section */}
-        <div className="px-6 mb-10 shrink-0">
-           <div className="flex justify-between items-center mb-5">
-              <h2 className="text-[18px] font-bold text-slate-900">สิทธิพิเศษ</h2>
-              <button className="text-[14px] font-bold text-[#D93D8D]">ดูทั้งหมด</button>
+        {/* Privileges Section */}
+        <div className="mb-8 shrink-0">
+           <div className="flex justify-between items-center mb-4 px-6">
+              <h2 className="text-lg font-semibold text-black font-['Kanit']">สิทธิพิเศษ</h2>
+              <button className="text-sm font-medium text-[#A80689] font-['Kanit'] active:scale-95 transition-transform">ดูทั้งหมด</button>
            </div>
-           <div className="w-full h-[180px] rounded-[36px] overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.12)] relative group cursor-pointer">
-              <Image 
-                src="/asset/icons/home-icon/Group 289549.svg" 
-                alt="Promo Banner" 
-                fill
-                sizes="(max-width: 430px) 100vw, 430px"
-                className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                priority
+           <div className="flex overflow-x-auto no-scrollbar gap-4 px-6 pb-2">
+              <PrivilegeCard 
+                title="ชาร์จคุ้ม! ชาร์จครั้งแรก ลดไปเลย 20 บาท" 
+                description="โปรแรงรับหน้าฝน เติมวันนี้ - 31 ส.ค. รับเงินเพิ่มทันที"
+                discount="20.-"
+                imageSrc="/asset/icons/home-icon/Group 289549.svg"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
-              <div className="absolute bottom-7 left-7 text-white pr-10">
-                <p className="font-black text-[22px] leading-tight mb-1.5 tracking-tight">สิทธิพิเศษสำหรับคุณ</p>
-                <p className="text-[13px] opacity-90 font-bold leading-relaxed">รับส่วนลดค่าไฟสูงสุด 10% เมื่อชำระผ่านแอป PEA Smart Plus ตลอดเดือนนี้</p>
-              </div>
+              <PrivilegeCard 
+                title="รับส่วนลดค่าไฟสูงสุด 10% เมื่อชำระผ่านแอป" 
+                description="สิทธิพิเศษสำหรับลูกค้า PEA Smart Plus เท่านั้น"
+                discount="10%"
+                imageSrc="/asset/icons/home-icon/Group 289549.svg"
+              />
            </div>
+        </div>
+
+        {/* Recommended Services Section */}
+        <div className="mb-12 shrink-0">
+          <div className="flex justify-between items-center mb-4 px-6">
+            <h2 className="text-lg font-semibold text-black font-['Kanit']">บริการแนะนำ</h2>
+            <button className="text-sm font-medium text-[#A80689] font-['Kanit'] active:scale-95 transition-transform">ดูทั้งหมด</button>
+          </div>
+          <div className="flex overflow-x-auto no-scrollbar gap-4 px-6 pb-2">
+            <RecommendedServiceCard 
+              title="บริการติดตั้ง Solar"
+              description="ใช้ 250 คะแนน แลกส่วนลด 20 บาท"
+              imageSrc="https://placehold.co/172x172"
+            />
+            <RecommendedServiceCard 
+              title="ตรวจสอบสายไฟ"
+              description="บริการตรวจสอบระบบไฟฟ้าภายในบ้าน"
+              imageSrc="https://placehold.co/172x172"
+            />
+            <RecommendedServiceCard 
+              title="ขยายเขตไฟฟ้า"
+              description="ยื่นขอรับบริการออนไลน์ได้ทันที"
+              imageSrc="https://placehold.co/172x172"
+            />
+          </div>
         </div>
 
         {/* Popup Trigger (Hidden overlay for testing) */}
@@ -160,48 +151,45 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeV
       </div>
 
       {/* Fixed Bottom Navigation */}
-      <div className="absolute bottom-0 left-0 w-full bg-white/95 backdrop-blur-xl border-t border-slate-100 flex justify-around items-center h-[85px] pb-safe-bottom px-4 z-50 shadow-[0_-8px_30px_rgba(0,0,0,0.03)] rounded-t-[32px] sm:max-w-[430px]">
-         <div className="flex flex-col items-center gap-1 text-[#7B2CBF] cursor-pointer">
-            <div className="w-8 h-8 flex items-center justify-center">
-              <Image src="/asset/icons/home-icon/Vector-3.svg" alt="Home" width={24} height={24} className="brightness-90 contrast-125" />
+      <div className="absolute bottom-0 left-0 w-full bg-white/95 backdrop-blur-2xl border-t border-slate-50/50 flex justify-around items-center h-[85px] sm:h-[90px] pb-safe-bottom px-2 sm:px-4 z-50 shadow-[0_-12px_32px_rgba(0,0,0,0.03)] rounded-t-[36px] sm:max-w-[430px]">
+         <div className="flex flex-col items-center gap-1.5 text-[#74045F] cursor-pointer group active:scale-95 transition-transform flex-1 min-w-0">
+            <div className="w-8 h-8 flex items-center justify-center relative">
+              <div className="absolute inset-0 bg-purple-50 rounded-full scale-125 opacity-40 blur-sm"></div>
+              <div className="w-6 h-6 bg-[radial-gradient(ellipse_75.81%_145.75%_at_49.46%_-2.02%,_#FF44DB_0%,_#A80689_100%)] rounded shadow-[inset_0_1px_3px_rgba(255,255,255,0.5)] flex items-center justify-center">
+                 <Image src="/asset/icons/home-icon/Vector-3.svg" alt="Home" width={16} height={16} className="brightness-0 invert" />
+              </div>
             </div>
-            <span className="text-[10px] font-bold">หน้าแรก</span>
+            <span className="text-[10px] font-bold tracking-tight text-center font-['Kanit']">หน้าหลัก</span>
          </div>
          
-         <div className="flex flex-col items-center gap-1 text-slate-400 group cursor-pointer">
-            <div className="w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-110">
-              <img src="/asset/icons/home-icon/Nav Bar-1.svg" alt="Usage" className="w-6 h-6" />
+         <div className="flex flex-col items-center gap-1.5 text-slate-400 group cursor-pointer active:scale-95 transition-transform flex-1 min-w-0">
+            <div className="w-8 h-8 flex items-center justify-center transition-all group-hover:scale-110">
+              <img src="/asset/icons/home-icon/Nav Bar-1.svg" alt="Usage" className="w-5.5 h-5.5 opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all" />
             </div>
-            <span className="text-[10px] font-bold">สถานที่ใช้ไฟฟ้า</span>
+            <span className="text-[10px] font-normal tracking-tight text-center truncate w-full px-1 font-['Kanit']">สถานที่ใช้ไฟ</span>
          </div>
 
-         <div className="flex flex-col items-center gap-1 text-slate-400 group cursor-pointer">
-            <div className="w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-110">
-              <Image src="/asset/icons/home-icon/Nav Bar-2.svg" alt="Usage" width={24} height={24} />
+         <div className="flex flex-col items-center gap-1.5 text-slate-400 group cursor-pointer active:scale-95 transition-transform flex-1 min-w-0">
+            <div className="w-8 h-8 flex items-center justify-center transition-all group-hover:scale-110">
+              <Image src="/asset/icons/home-icon/Nav Bar-2.svg" alt="Services" width={22} height={22} className="opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all" />
             </div>
-            <span className="text-[10px] font-bold">บริการ</span>
+            <span className="text-[10px] font-normal tracking-tight text-center truncate w-full font-['Kanit']">บริการ</span>
          </div>
 
-         <div className="flex flex-col items-center gap-1 text-slate-400 group cursor-pointer">
-            <div className="w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-110">
-              <Image src="/asset/icons/home-icon/Nav Bar.svg" alt="Pay" width={24} height={24} />
+         <div className="flex flex-col items-center gap-1.5 text-slate-400 group cursor-pointer active:scale-95 transition-transform flex-1 min-w-0">
+            <div className="w-8 h-8 flex items-center justify-center transition-all group-hover:scale-110">
+              <Image src="/asset/icons/home-icon/Nav Bar.svg" alt="Pay" width={22} height={22} className="opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all" />
             </div>
-            <span className="text-[10px] font-bold">ชำระเงิน</span>
+            <span className="text-[10px] font-normal tracking-tight text-center truncate w-full font-['Kanit']">ชำระเงิน</span>
          </div>
 
-         <div className="flex flex-col items-center gap-1 text-slate-400 group cursor-pointer">
-            <div className="w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-110">
-              <Image src="/asset/icons/home-icon/user-avatar (1) 1.svg" alt="Profile" width={24} height={24} />
+         <div className="flex flex-col items-center gap-1.5 text-slate-400 group cursor-pointer active:scale-95 transition-transform flex-1 min-w-0">
+            <div className="w-8 h-8 flex items-center justify-center transition-all group-hover:scale-110">
+              <Image src="/asset/icons/home-icon/user-avatar (1) 1.svg" alt="Profile" width={22} height={22} className="opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all" />
             </div>
-            <span className="text-[10px] font-bold">โปรไฟล์</span>
+            <span className="text-[10px] font-normal tracking-tight text-center truncate w-full font-['Kanit']">โปรไฟล์</span>
          </div>
       </div>
-
-      {/* Popup Trigger (Hidden overlay for testing) */}
-      <button 
-        onClick={onOpenEvaluation}
-        className="absolute top-[400px] left-1/2 -translate-x-1/2 w-40 h-20 opacity-0 z-50 cursor-default"
-      />
     </div>
   );
 }

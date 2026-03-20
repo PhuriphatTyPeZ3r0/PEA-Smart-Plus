@@ -23,7 +23,7 @@ export default function AppFlow() {
   const [hasShownEvaluation, setHasShownEvaluation] = useState<boolean>(false);
   const [activeQuestion, setActiveQuestion] = useState<ActiveQuestion | null>({
     questionId: 999,
-    question: "คุณรู้สึกอย่างไรต่อการใช้บริการแอปพลิเคชัน PEA Smart Plus ครั้งนี้"
+    question: "คุณรู้สึกพึงพอใจมากเพียงใดกับประสบการณ์การใช้งาน PEA Smart Plus ครั้งนี้"
   });
 
   // Mockup Data for UserAccId = 90
@@ -75,7 +75,8 @@ export default function AppFlow() {
 
   return (
     <div className="min-h-[100dvh] bg-[#F1F5F9] flex items-center justify-center p-0 sm:p-4 font-sans text-slate-900 overflow-hidden">
-      <div className="w-full max-w-[430px] h-[100dvh] sm:h-[90vh] sm:max-h-[932px] bg-white sm:rounded-[48px] shadow-2xl overflow-hidden relative flex flex-col">
+      {/* Main App Container */}
+      <div className="w-full max-w-[430px] h-[100dvh] sm:h-[92dvh] sm:max-h-[932px] bg-white sm:rounded-[48px] shadow-2xl overflow-hidden relative flex flex-col sm:border-[8px] sm:border-slate-800">
         
         {view === "loading" && <LoadingView />}
 
@@ -85,13 +86,18 @@ export default function AppFlow() {
 
         {(view === "rating" || view === "review" || view === "success") && (
           <div className="absolute inset-0 bg-black/40 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-6 transition-opacity duration-300">
-            <div className="w-full max-w-[430px] h-[85dvh] sm:h-auto sm:max-h-[680px] bg-white rounded-t-[40px] sm:rounded-[40px] shadow-2xl overflow-hidden relative flex flex-col animate-slide-in-bottom">
+            {/* Click outside to close (optional, but good for UX) */}
+            <div className="absolute inset-0" onClick={handleClose}></div>
+            
+            <div className="w-full max-w-[430px] h-[88dvh] sm:h-auto sm:max-h-[720px] bg-white rounded-t-[40px] sm:rounded-[40px] shadow-2xl overflow-hidden relative flex flex-col animate-slide-in-bottom">
+              {/* Drag Handle for Mobile feel */}
+              <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mt-4 mb-2 shrink-0 sm:hidden"></div>
               
               <button 
                 onClick={handleClose}
-                className="absolute top-6 left-6 z-10 w-8 h-8 rounded-full flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition-colors"
+                className="absolute top-6 left-6 z-10 w-9 h-9 rounded-full flex items-center justify-center bg-slate-50 hover:bg-slate-100 active:scale-90 transition-all border border-slate-100 shadow-sm"
               >
-                <Image src="/asset/icons/evaluate-satisfaction-icon/x-close.svg" alt="Close" width={12} height={12} />
+                <Image src="/asset/icons/evaluate-satisfaction-icon/x-close.svg" alt="Close" width={12} height={12} className="opacity-60" />
               </button>
 
               {view === "rating" && (
@@ -114,7 +120,7 @@ export default function AppFlow() {
                 />
               )}
 
-              {view === "success" && <SuccessView />}
+              {view === "success" && <SuccessView onClose={handleClose} />}
             </div>
           </div>
         )}

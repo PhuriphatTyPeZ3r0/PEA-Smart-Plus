@@ -19,60 +19,103 @@ export default function RatingView({
   setRating,
   setHoverRating,
   onRatingSubmit,
-  onGoToReview
+  onGoToReview,
 }: RatingViewProps) {
   return (
-    <div className="flex-1 flex flex-col items-center px-8 pt-16 pb-10 overflow-y-auto no-scrollbar">
-      <div className="mb-8 mt-4">
-        <Image 
-          src="/asset/icons/evaluate-satisfaction-icon/Mask group.svg" 
-          alt="Satisfaction Icon" 
-          width={200} 
-          height={200}
-          className="w-[160px] h-auto"
-          priority
-        />
+    <div className="flex-1 flex flex-col bg-white overflow-hidden">
+      {/* Illustration Area - Mapped to provided assets */}
+      <div className="self-stretch h-[320px] relative overflow-hidden flex-shrink-0">
+        {/* Background Decorative Ellipses */}
+        <div className="absolute left-1/2 -translate-x-1/2 top-[48px]">
+          <Image 
+            src="/asset/icons/evaluate-satisfaction-icon/Ellipse 1946.svg" 
+            alt="Bg Decor" 
+            width={219} 
+            height={219}
+            className="opacity-50 blur-[2px]"
+          />
+        </div>
+        <div className="absolute left-1/2 -translate-x-[60%] top-[73px]">
+          <Image 
+            src="/asset/icons/evaluate-satisfaction-icon/Ellipse 1945.svg" 
+            alt="Bg Decor Small" 
+            width={157} 
+            height={157}
+            className="opacity-50"
+          />
+        </div>
+        
+        {/* Main Character Illustration */}
+        <div className="absolute inset-0 flex items-center justify-center pt-8">
+             <Image 
+                src="/asset/icons/evaluate-satisfaction-icon/Mask group.svg" 
+                alt="Satisfaction Illustration" 
+                width={157} 
+                height={157}
+                className="relative z-10"
+                priority
+             />
+        </div>
+
+        {/* Floating elements if needed - Vector.svg (Speech bubble) */}
+        <div className="absolute right-[20%] top-[80px] animate-bounce duration-[3000ms]">
+          <Image 
+            src="/asset/icons/evaluate-satisfaction-icon/Vector.svg" 
+            alt="Speech Bubble" 
+            width={40} 
+            height={22}
+            className="opacity-80"
+          />
+        </div>
       </div>
 
-      <h1 className="text-[20px] font-bold text-[#1F2937] mb-2 text-center">ให้คะแนนความพึงพอใจ</h1>
-      <p className="text-[14px] text-gray-500 text-center leading-relaxed mb-8 max-w-[280px]">
-        {activeQuestion ? activeQuestion.question : "คุณรู้สึกอย่างไรต่อการใช้บริการแอปพลิเคชัน PEA Smart Plus ครั้งนี้"}
-      </p>
-
-      <div className="flex flex-col items-center mb-10 w-full">
-        <div className="flex gap-3 mb-2">
-          {[1, 2, 3, 4, 5].map((star) => (
-            <StarIcon
-              key={star}
-              filled={(hoverRating || rating) >= star}
-              onClick={() => setRating(star)}
-              onMouseEnter={() => setHoverRating(star)}
-              onMouseLeave={() => setHoverRating(0)}
-            />
-          ))}
+      {/* Text Content */}
+      <div className="flex flex-col justify-start items-center gap-5 px-6">
+        <div className="flex flex-col justify-start items-center gap-2">
+          <h1 className="text-[#101828] text-2xl font-semibold font-['Kanit'] leading-8 text-center">
+            ให้คะแนนความพึงพอใจ
+          </h1>
+          <p className="text-[#101828] text-base font-normal font-['Kanit'] leading-6 text-center max-w-[320px]">
+            {activeQuestion ? activeQuestion.question : "คุณรู้สึกพึงพอใจกับประสบการณ์การใช้งาน PEA Smart Plus หรือไม่"}
+          </p>
         </div>
-        <div className="w-full flex justify-end pr-8">
-          <span className="text-[12px] text-purple-600 font-medium">มากที่สุด</span>
+
+        {/* Rating Section */}
+        <div className="flex flex-col items-center gap-4 w-full py-4">
+          <div className="flex justify-between items-center w-full max-w-[320px]">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <div key={star} className="w-14 h-14 flex items-center justify-center">
+                <StarIcon
+                  filled={(hoverRating || rating) >= star}
+                  onClick={() => setRating(star)}
+                  onMouseEnter={() => setHoverRating(star)}
+                  onMouseLeave={() => setHoverRating(0)}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="mt-auto w-full flex flex-col gap-3">
+      {/* Buttons Area */}
+      <div className="mt-auto pt-6 pb-12 px-5 flex flex-col justify-center items-start gap-4">
         <button
           onClick={onRatingSubmit}
           disabled={rating === 0}
-          className={`w-full py-[16px] rounded-2xl text-[16px] font-bold transition-all duration-300 ${
-            rating > 0 
-              ? "bg-gradient-to-r from-purple-600 to-[#A855F7] text-white shadow-lg shadow-purple-200 active:scale-[0.98]" 
-              : "bg-[#F3F4F6] text-[#9CA3AF] cursor-not-allowed"
+          className={`self-stretch px-5 py-4 rounded-full shadow-[0_1px_2px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] flex justify-center items-center transition-all ${
+            rating > 0
+              ? "bg-[#A80689] text-white outline-[#A80689] active:scale-[0.98]"
+              : "bg-[#F2F4F7] text-[#98A1B2] outline-[#E4E7EC] cursor-not-allowed"
           }`}
         >
-          ยืนยัน
+          <span className="text-xl font-medium font-['Kanit'] leading-7">ยืนยัน</span>
         </button>
+
         <button
           onClick={onGoToReview}
-          className="w-full py-[16px] rounded-2xl text-[16px] font-bold border-2 border-[#F3F4F6] text-[#4B5563] hover:bg-gray-50 transition-all active:scale-[0.98]"
+          className="self-stretch px-5 py-4 bg-white rounded-full shadow-[0_1px_2px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] outline-[#E4E7EC] flex justify-center items-center hover:bg-slate-50 active:scale-[0.98] transition-all"
         >
-          เขียนรีวิวเพิ่มเติม
+          <span className="text-[#344054] text-xl font-medium font-['Kanit'] leading-7">เขียนรีวิวเพิ่มเติม</span>
         </button>
       </div>
     </div>
