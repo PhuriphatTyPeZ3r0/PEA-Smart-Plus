@@ -1,5 +1,6 @@
+"use client";
+
 import React from "react";
-import Image from "next/image";
 
 interface ReviewViewProps {
   comment: string;
@@ -7,60 +8,57 @@ interface ReviewViewProps {
   onReviewSubmit: () => void;
 }
 
-export default function ReviewView({ comment, setComment, onReviewSubmit }: ReviewViewProps) {
+export default function ReviewView({
+  comment,
+  setComment,
+  onReviewSubmit,
+}: ReviewViewProps) {
   return (
-    <div className="flex-1 flex flex-col px-8 pt-16 pb-10 animate-slide-in-right overflow-y-auto no-scrollbar bg-white">
-      <div className="mb-10 relative">
-        {/* Decorative Speech Bubble Icon */}
-        <div className="absolute -top-4 -right-2 opacity-20 rotate-12 scale-150">
-          <Image 
-            src="/asset/icons/evaluate-satisfaction-icon/Vector.svg" 
-            alt="Decor" 
-            width={60} 
-            height={34}
-          />
+    <div className="w-full h-full flex flex-col justify-start items-center bg-white overflow-hidden">
+      {/* Header Space (Mocking the UI snippet provided) */}
+      <div className="self-stretch flex-1 px-5 py-10 flex flex-col justify-start items-center gap-5">
+        <div className="self-stretch flex flex-col justify-start items-start gap-2">
+          <div className="text-[#101828] text-2xl font-medium font-['Kanit'] leading-8">
+            ประเมินรายละเอียดเพิ่มเติม
+          </div>
         </div>
         
-        <h1 className="text-[26px] font-semibold text-[#101828] mb-2 tracking-tight text-center sm:text-left font-['Kanit']">ประเมินรายละเอียดเพิ่มเติม</h1>
-        <p className="text-[16px] text-[#667085] font-normal text-center sm:text-left mb-4 font-['Kanit'] leading-relaxed">
-          แบ่งปันประสบการณ์ของคุณกับเรา <br className="sm:hidden"/> เพื่อนำมาปรับปรุงการบริการให้ดีขึ้น
-        </p>
-        <div className="h-1.5 w-12 bg-[#A80689] rounded-full mx-auto sm:mx-0"></div>
-      </div>
-      
-      <div className="flex-1 flex flex-col mb-10 group">
-        <label className="text-[13px] text-[#667085] mb-2.5 font-medium uppercase tracking-widest pl-1 group-focus-within:text-[#A80689] transition-colors font-['Kanit']">
-          ข้อเสนอแนะของท่าน
-        </label>
-        <div className="flex-1 min-h-[200px] relative bg-slate-50/50 rounded-3xl border border-slate-100 focus-within:border-[#A80689]/30 focus-within:bg-white focus-within:shadow-[0_12px_24px_-8px_rgba(168,6,137,0.06)] transition-all duration-300">
-          <textarea
-            value={comment}
-            onChange={(e) => setComment(e.target.value.slice(0, 1000))}
-            placeholder="กรุณาระบุรายละเอียดตามความต้องการ เพื่อนำไปพัฒนาการให้บริการดีขึ้น"
-            className="w-full h-full p-6 bg-transparent resize-none outline-none text-[#101828] text-[15px] font-normal leading-relaxed placeholder:text-slate-400 no-scrollbar font-['Kanit']"
-          />
-          <div className="absolute bottom-6 right-6 flex items-center gap-1.5 px-3 py-1.5 bg-white shadow-sm rounded-full border border-slate-50 transition-all">
-            <span className={`text-[11px] font-semibold tracking-tight font-['Kanit'] ${comment.length > 900 ? "text-red-500" : "text-[#667085]"}`}>
-              {comment.length}
-            </span>
-            <span className="text-[10px] text-slate-300 font-bold">/</span>
-            <span className="text-[11px] text-slate-300 font-bold font-['Kanit']">1000</span>
+        {/* Textarea Container */}
+        <div className="self-stretch h-44 flex flex-col justify-start items-start gap-1.5">
+          <div className="self-stretch flex-1 flex flex-col justify-start items-start gap-1.5">
+            <div className="self-stretch flex-1 px-3.5 py-3 relative bg-white rounded-2xl shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] outline-[#D0D5DD] inline-flex justify-start items-start gap-2 overflow-hidden">
+              <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="แบ่งปันประสบการณ์ของคุณกับเรา เพื่อพัฒนาบริการให้ดีขึ้น"
+                className="flex-1 self-stretch justify-start text-[#667085] text-base font-normal font-['Kanit'] leading-6 border-none focus:ring-0 resize-none bg-transparent"
+              />
+              
+              {/* Resize/Decorative icons from snippet */}
+              <div className="w-3 h-3 absolute right-3 bottom-3 opacity-20 pointer-events-none">
+                <div className="w-2 h-2 left-[2px] top-[2px] absolute outline outline-1 outline-offset-[-0.50px] outline-[#D0D5DD]" />
+                <div className="w-1 h-1 left-[7px] top-[7px] absolute outline outline-1 outline-offset-[-0.50px] outline-[#D0D5DD]" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <button
-        onClick={onReviewSubmit}
-        className="w-full py-4 bg-[#A80689] text-white rounded-full text-xl font-medium shadow-[0_1px_2px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] outline-[#A80689] active:scale-[0.98] transition-all font-['Kanit']"
-      >
-        ยืนยันการประเมิน
-      </button>
-
-      {/* Pagination Dots Mapping */}
-      <div className="flex gap-2 mt-10 items-center justify-center">
-         <div className="w-1 h-1 bg-slate-200 rounded-full"></div>
-         <div className="w-6 h-1 bg-[#A80689] rounded-full transition-all"></div>
-         <div className="w-1 h-1 bg-slate-200 rounded-full"></div>
+      {/* Action Button Section */}
+      <div className="w-full pt-10 pb-12 bg-white flex flex-col justify-center items-start gap-8 px-5 border-t border-gray-50">
+        <div className="self-stretch flex flex-col justify-center items-start gap-5">
+          <button
+            onClick={onReviewSubmit}
+            disabled={!comment.trim()}
+            className={`self-stretch px-5 py-4 rounded-full shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] inline-flex justify-center items-center gap-2.5 overflow-hidden transition-all active:scale-[0.98] ${
+              comment.trim() 
+                ? "bg-[#9B2677] outline-[#9B2677] text-white" 
+                : "bg-[#F2F4F7] outline-[#E4E7EC] text-[#98A1B2] cursor-not-allowed"
+            }`}
+          >
+            <div className="text-xl font-medium font-['Kanit'] leading-7">ยืนยัน</div>
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -15,9 +15,10 @@ interface HomeViewProps {
   };
   isActive: boolean;
   onOpenEvaluation: () => void;
+  onOpenNotifications: () => void;
 }
 
-export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeViewProps) {
+export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenNotifications }: HomeViewProps) {
   return (
     <div className={`flex-1 flex flex-col bg-[#F8FAFC] relative h-full overflow-hidden ${!isActive ? "pointer-events-none" : "animate-zoom-in"}`}>
       {/* Scrollable Content Area */}
@@ -40,15 +41,19 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeV
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 xs:w-14 xs:h-14 rounded-full border-[0.75px] border-white/20 p-0.5 overflow-hidden">
-                  <Image src="/asset/home-img/Profile GitHub.png" alt="Profile" width={56} height={56} className="rounded-full object-cover" />
+                  <Image src="/asset/home-img/Avatar.png" alt="Profile" width={56} height={56} className="rounded-full object-cover" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-white/80 text-sm xs:text-base font-medium font-['Kanit'] leading-5">สวัสดี</span>
-                  <span className="text-white text-base xs:text-lg font-semibold font-['Kanit'] leading-6">{mockUser.name}</span>
+                  <span className="text-white text-base xs:text-lg font-semibold font-['Kanit'] leading-6">คุณศิญาพร สวยดี</span>
                 </div>
               </div>
-              <div className="w-9 h-9 xs:w-10 xs:h-10 rounded-full bg-white/15 flex items-center justify-center relative backdrop-blur-lg border border-white/30 active:scale-90 transition-transform cursor-pointer">
+              <div 
+                onClick={onOpenNotifications}
+                className="w-9 h-9 xs:w-10 xs:h-10 rounded-full bg-white/15 flex items-center justify-center relative backdrop-blur-lg border border-white/30 active:scale-90 transition-transform cursor-pointer"
+              >
                 <Image src="/asset/icons/home-icon/bell-01.svg" alt="Notifications" width={20} height={20} className="brightness-0 invert" />
+                <span className="absolute top-2 right-2 w-2 h-2 bg-pink-500 rounded-full border border-white"></span>
               </div>
             </div>
           </div>
@@ -164,7 +169,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeV
          
          <div className="flex flex-col items-center gap-1.5 text-slate-400 group cursor-pointer active:scale-95 transition-transform flex-1 min-w-0">
             <div className="w-8 h-8 flex items-center justify-center transition-all group-hover:scale-110">
-              <img src="/asset/icons/home-icon/Nav Bar-1.svg" alt="Usage" className="w-5.5 h-5.5 opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all" />
+              <Image src="/asset/icons/home-icon/Nav Bar-1.svg" alt="Usage" width={22} height={22} className="opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all" />
             </div>
             <span className="text-[10px] font-normal tracking-tight text-center truncate w-full px-1 font-['Kanit']">สถานที่ใช้ไฟ</span>
          </div>

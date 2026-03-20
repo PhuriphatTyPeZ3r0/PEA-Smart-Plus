@@ -7,8 +7,11 @@ import HomeView from "../components/views/HomeView";
 import RatingView from "../components/views/RatingView";
 import ReviewView from "../components/views/ReviewView";
 import SuccessView from "../components/views/SuccessView";
+import NotificationView from "../components/views/NotificationView";
+import NotificationSettingsView from "../components/views/NotificationSettingsView";
+import NotificationDetailView from "../components/views/NotificationDetailView";
 
-type ViewState = "loading" | "home" | "rating" | "review" | "success";
+type ViewState = "loading" | "home" | "rating" | "review" | "success" | "notification" | "notification-settings" | "notification-detail";
 
 interface ActiveQuestion {
   questionId: number;
@@ -17,11 +20,12 @@ interface ActiveQuestion {
 
 export default function AppFlow() {
   const [view, setView] = useState<ViewState>("loading");
+  const [selectedNotiId, setSelectedNotiId] = useState<string | null>(null);
   const [rating, setRating] = useState<number>(0);
   const [hoverRating, setHoverRating] = useState<number>(0);
   const [comment, setComment] = useState<string>("");
   const [hasShownEvaluation, setHasShownEvaluation] = useState<boolean>(false);
-  const [activeQuestion, setActiveQuestion] = useState<ActiveQuestion | null>({
+  const [activeQuestion] = useState<ActiveQuestion | null>({
     questionId: 999,
     question: "คุณรู้สึกพึงพอใจมากเพียงใดกับประสบการณ์การใช้งาน PEA Smart Plus ครั้งนี้"
   });
@@ -45,7 +49,7 @@ export default function AppFlow() {
     }, 2000);
     
     return () => clearTimeout(timer);
-  }, []);
+  }, [mockUser.idenNumber]);
 
   useEffect(() => {
     if (view === "home" && !hasShownEvaluation) {
@@ -81,7 +85,42 @@ export default function AppFlow() {
         {view === "loading" && <LoadingView />}
 
         {view !== "loading" && (
-          <HomeView mockUser={mockUser} isActive={view === "home"} onOpenEvaluation={() => setView("rating")} />
+          <HomeView 
+            mockUser={mockUser} 
+            isActive={view === "home"} 
+            onOpenEvaluation={() => setView("rating")} 
+            onOpenNotifications={() => setView("notification")}
+          />
+        )}
+
+        {view === "notification" && (
+          <div className="absolute inset-0 bg-white z-[50]">
+            <NotificationView 
+              onBack={() => setView("home")}
+              onGoToSettings={() => setView("notification-settings")}
+              onGoToDetail={(id) => {
+                setSelectedNotiId(id);
+                setView("notification-detail");
+              }}
+            />
+          </div>
+        )}
+
+        {view === "notification-settings" && (
+          <div className="absolute inset-0 bg-white z-[50]">
+            <NotificationSettingsView 
+              onBack={() => setView("notification")}
+            />
+          </div>
+        )}
+
+        {view === "notification-detail" && (
+          <div className="absolute inset-0 bg-white z-[50]">
+            <NotificationDetailView 
+              id={selectedNotiId || "1"}
+              onBack={() => setView("notification")}
+            />
+          </div>
         )}
 
         {(view === "rating" || view === "review" || view === "success") && (
