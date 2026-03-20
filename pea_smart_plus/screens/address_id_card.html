@@ -1,0 +1,24 @@
+<!-- Screen: s-addr1 -->
+<div class="sc" id="s-addr1">
+  <div class="hero">
+    <div class="bk" style="margin:0 0 12px;" onclick="back()"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8B1A6B" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></div>
+    <svg class="hero-img" viewBox="0 0 130 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="75" cy="75" rx="50" ry="25" fill="#E89ACC" opacity=".4"/><rect x="22" y="28" width="68" height="48" rx="8" fill="#D490C0" opacity=".7"/><rect x="27" y="33" width="58" height="38" rx="6" fill="#F0C0E0" opacity=".8"/><circle cx="75" cy="20" r="13" fill="#C4308A" opacity=".9"/><line x1="75" y1="12" x2="75" y2="28" stroke="white" stroke-width="3" stroke-linecap="round"/><line x1="68" y1="20" x2="82" y2="20" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+    <h2 style="font-size:22px;font-weight:800;color:#222;margin-bottom:6px;">ที่อยู่ตามบัตรประชาชน</h2>
+    <p style="font-size:13px;color:#666;">สำหรับยืนยันตัวตนและการทำธุรกรรม</p>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:18px 20px 16px;">
+    <div class="if-row">
+      <div class="ig" style="margin-bottom:0;"><div class="il">เลขที่</div><input class="if" value="77/1"></div>
+      <input class="if" placeholder="หมู่ (ถ้ามี)">
+    </div>
+    <input class="if" placeholder="หมู่บ้าน (ถ้ามี)" style="margin-bottom:12px;">
+    <input class="if" placeholder="ซอย (ถ้ามี)" style="margin-bottom:12px;">
+    <div class="ig"><div class="il">ถนน (ถ้ามี)</div><input class="if" value="ดินแดง"></div>
+    <div class="ig"><div class="il">ตำบล/อำเภอ/จังหวัด/รหัสไปรษณีย์</div>
+      <div class="addr-btn"><span>บ้านกล้วย/เมืองสุโขทัย/สุโขทัย</span><span style="color:#AAA;">›</span></div>
+    </div>
+  </div>
+  <div style="padding:14px 20px 32px;flex-shrink:0;"><button class="bp" onclick="go('s-success')">ยืนยันข้อมูล</button></div>
+</div>
+
+<!-- ── S11: ยืนยันสำเร็จ ── -->

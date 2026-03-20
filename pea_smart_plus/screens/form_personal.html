@@ -1,0 +1,22 @@
+<!-- Screen: s-form -->
+<div class="sc" id="s-form">
+  <div class="hero">
+    <div class="bk" style="margin:0 0 12px;" onclick="back()"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8B1A6B" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></div>
+    <svg class="hero-img" viewBox="0 0 130 100" xmlns="http://www.w3.org/2000/svg"><rect x="25" y="22" width="72" height="50" rx="10" fill="#D480B8" opacity=".8"/><rect x="15" y="16" width="72" height="50" rx="10" fill="#E8A8D0" opacity=".9"/><circle cx="35" cy="36" r="11" fill="#FDDCC8"/><rect x="52" y="28" width="28" height="5" rx="2.5" fill="white" opacity=".6"/><rect x="52" y="36" width="20" height="4" rx="2" fill="white" opacity=".4"/><rect x="52" y="43" width="16" height="4" rx="2" fill="white" opacity=".35"/><circle cx="90" cy="22" r="13" fill="#EDB830"/><text x="85" y="27" font-size="14" font-family="Arial" font-weight="900" fill="white">+</text></svg>
+    <h2 style="font-size:22px;font-weight:800;color:#222;margin-bottom:6px;">ข้อมูลส่วนตัวของคุณ</h2>
+    <p style="font-size:13px;color:#666;">กรุณากรอกข้อมูลตามบัตรประชาชนเพื่อยืนยันตัวตน</p>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:18px 20px 16px;">
+    <div style="position:relative;margin-bottom:14px;">
+      <input id="idnum" class="if" placeholder="หมายเลขบัตรประชาชน" oninput="fmtID(this)">
+      <div style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#AAA;font-size:18px;">⊡</div>
+    </div>
+    <div class="ig"><div class="il">คำนำหน้าชื่อ</div><input class="if" value="นางสาว" readonly></div>
+    <div class="ig"><div class="il">ชื่อ</div><input class="if" value="ศิญาพร"></div>
+    <div class="ig"><div class="il">นามสกุล</div><input class="if" value="สวยดี"></div>
+    <div class="ig"><div class="il">วัน เดือน ปีเกิด</div><input class="if" value="15 มีนาคม 2538" readonly></div>
+  </div>
+  <div style="padding:14px 20px 32px;flex-shrink:0;"><button class="bp" onclick="go('s-addr1')">ถัดไป</button></div>
+</div>
+
+<!-- ── S10: ที่อยู่ตามบัตร ── -->

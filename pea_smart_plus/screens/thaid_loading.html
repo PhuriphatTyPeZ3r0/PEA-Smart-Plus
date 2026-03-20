@@ -1,0 +1,53 @@
+<!-- Screen: s-thaid-loading -->
+<div class="sc" id="s-thaid-loading" style="background:#E8EDF5;">
+  <div class="tb" style="height:100%;display:flex;flex-direction:column;">
+    <div style="background:#F0F4FA;padding:10px 12px 8px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+      <div style="background:#fff;border-radius:8px;padding:7px 12px;flex:1;display:flex;align-items:center;justify-content:center;gap:5px;box-shadow:0 1px 4px rgba(0,0,0,.08);">
+        <span style="font-size:12px;color:#555;">🔒 imauth.bora.dopa.go.th</span>
+      </div>
+      <span style="font-size:18px;color:#555;">↻</span>
+    </div>
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:16px;">
+      <div class="tc" style="width:100%;">
+        <div class="tct">
+          <p style="font-size:22px;font-weight:300;font-family:serif;margin-bottom:3px;">เข้าสู่ระบบ</p>
+          <p style="font-size:13px;opacity:.8;margin-bottom:14px;">ด้วย ThaID</p>
+          <div id="tld-spin"><div class="tsp"></div></div>
+          <div id="tld-qr" style="display:none;">
+            <p style="font-size:12px;opacity:.85;margin-bottom:10px;">แอปพลิเคชัน PEA Smart Plus</p>
+            <div style="background:#fff;border-radius:12px;padding:10px;width:140px;margin:0 auto;">
+              <svg viewBox="0 0 100 100" width="120" height="120" style="display:block;">
+                <rect width="100" height="100" fill="white"/>
+                <rect x="5" y="5" width="30" height="30" fill="#111" rx="3"/><rect x="8" y="8" width="24" height="24" fill="white" rx="2"/><rect x="11" y="11" width="18" height="18" fill="#111" rx="1"/>
+                <rect x="65" y="5" width="30" height="30" fill="#111" rx="3"/><rect x="68" y="8" width="24" height="24" fill="white" rx="2"/><rect x="71" y="11" width="18" height="18" fill="#111" rx="1"/>
+                <rect x="5" y="65" width="30" height="30" fill="#111" rx="3"/><rect x="8" y="68" width="24" height="24" fill="white" rx="2"/><rect x="11" y="71" width="18" height="18" fill="#111" rx="1"/>
+                <rect x="42" y="5" width="5" height="5" fill="#111" rx="1"/><rect x="50" y="5" width="5" height="5" fill="#111" rx="1"/><rect x="58" y="5" width="5" height="5" fill="#111" rx="1"/>
+                <rect x="42" y="13" width="5" height="5" fill="#111" rx="1"/><rect x="58" y="13" width="5" height="5" fill="#111" rx="1"/>
+                <rect x="50" y="21" width="5" height="5" fill="#111" rx="1"/>
+                <rect x="5" y="42" width="5" height="5" fill="#111" rx="1"/><rect x="13" y="42" width="5" height="5" fill="#111" rx="1"/><rect x="29" y="42" width="5" height="5" fill="#111" rx="1"/>
+                <rect x="42" y="42" width="5" height="5" fill="#111" rx="1"/><rect x="50" y="42" width="5" height="5" fill="#111" rx="1"/><rect x="58" y="42" width="5" height="5" fill="#111" rx="1"/><rect x="66" y="42" width="5" height="5" fill="#111" rx="1"/><rect x="74" y="42" width="5" height="5" fill="#111" rx="1"/><rect x="90" y="42" width="5" height="5" fill="#111" rx="1"/>
+                <rect x="5" y="50" width="5" height="5" fill="#111" rx="1"/><rect x="21" y="50" width="5" height="5" fill="#111" rx="1"/><rect x="42" y="50" width="5" height="5" fill="#111" rx="1"/><rect x="66" y="50" width="5" height="5" fill="#111" rx="1"/>
+                <rect x="5" y="58" width="5" height="5" fill="#111" rx="1"/><rect x="29" y="58" width="5" height="5" fill="#111" rx="1"/><rect x="50" y="58" width="5" height="5" fill="#111" rx="1"/><rect x="74" y="58" width="5" height="5" fill="#111" rx="1"/>
+                <rect x="42" y="66" width="5" height="5" fill="#111" rx="1"/><rect x="58" y="66" width="5" height="5" fill="#111" rx="1"/>
+                <rect x="42" y="74" width="5" height="5" fill="#111" rx="1"/><rect x="50" y="74" width="5" height="5" fill="#111" rx="1"/><rect x="82" y="74" width="5" height="5" fill="#111" rx="1"/>
+                <rect x="42" y="82" width="5" height="5" fill="#111" rx="1"/><rect x="66" y="82" width="5" height="5" fill="#111" rx="1"/>
+                <rect x="42" y="90" width="5" height="5" fill="#111" rx="1"/><rect x="58" y="90" width="5" height="5" fill="#111" rx="1"/><rect x="82" y="90" width="5" height="5" fill="#111" rx="1"/>
+              </svg>
+            </div>
+            <p style="font-size:11px;opacity:.7;margin-top:10px;">สแกน QR Code ด้วยแอป ThaID</p>
+            <button onclick="go('s-thaid-splash')" style="margin-top:14px;background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:8px 22px;font-family:'Sarabun',sans-serif;font-size:13px;cursor:pointer;">เปิดแอป ThaID →</button>
+          </div>
+        </div>
+        <div class="tcb">
+          <p style="font-size:12px;opacity:.85;line-height:1.6;">คิวอาร์โค้ดนี้เป็นสิ่งยืนยันตนทางดิจิทัล ออกให้โดย<br>กรมการปกครอง กระทรวงมหาดไทย</p>
+          <p style="font-size:10px;opacity:.5;margin-top:6px;">v.1.2.1</p>
+        </div>
+      </div>
+    </div>
+    <div style="background:#F0F4FA;padding:10px 24px 28px;display:flex;justify-content:space-around;align-items:center;flex-shrink:0;">
+      <span style="font-size:22px;opacity:.3;">‹</span><span style="font-size:22px;opacity:.3;">›</span><span style="font-size:22px;">⬆</span><span style="font-size:22px;">📖</span><span style="font-size:22px;">⧉</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── S4: ThaID Splash ── -->
