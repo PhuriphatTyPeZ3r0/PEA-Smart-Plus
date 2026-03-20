@@ -15,15 +15,15 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "PEA Smart Plus",
   description: "PEA Smart Plus Satisfaction Evaluation",
-  manifest: "/Evaluate_Satisfaction/manifest.json",
+  manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
     title: "PEA Smart Plus",
   },
   icons: {
-    icon: "/Evaluate_Satisfaction/pwa-icon.png",
-    apple: "/Evaluate_Satisfaction/pwa-icon.png",
+    icon: "/pwa-icon.png",
+    apple: "/pwa-icon.png",
   }
 };
 
@@ -51,7 +51,7 @@ export default function RootLayout({
             __html: `
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/Evaluate_Satisfaction/sw.js').then(
+                  navigator.serviceWorker.register('/sw.js').then(
                     function(registration) {
                       console.log('ServiceWorker registration successful with scope: ', registration.scope);
                     },

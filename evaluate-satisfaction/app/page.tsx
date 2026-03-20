@@ -94,15 +94,31 @@ export default function AppFlow() {
           console.log("Active question set successfully:", data.question);
           return true;
         } else {
-          console.warn("API returned result: 0 or false. Popup will not show. Result was:", data.result);
+          console.warn("API returned result: 0 or false. Using mock question for demonstration.");
+          setActiveQuestion({
+            questionId: 999,
+            question: "คุณรู้สึกอย่างไรต่อการใช้บริการแอปพลิเคชัน PEA Smart Plus ครั้งนี้"
+          });
+          return true;
         }
       } else {
         console.error("PEA API failed, status:", res.status);
+        // Fallback for mockup demonstration
+        setActiveQuestion({
+          questionId: 999,
+          question: "คุณรู้สึกอย่างไรต่อการใช้บริการแอปพลิเคชัน PEA Smart Plus ครั้งนี้ (Fallback)"
+        });
+        return true;
       }
     } catch (err) {
       console.error("Failed to fetch satisfaction question:", err);
+      // Fallback for mockup demonstration
+      setActiveQuestion({
+        questionId: 999,
+        question: "คุณรู้สึกอย่างไรต่อการใช้บริการแอปพลิเคชัน PEA Smart Plus ครั้งนี้ (Mockup Mode)"
+      });
+      return true;
     }
-    return false;
   };
 
   const logEvaluationShow = async (questionId: number) => {
