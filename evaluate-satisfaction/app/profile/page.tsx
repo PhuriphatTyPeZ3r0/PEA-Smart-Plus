@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <div className="flex h-screen w-full flex-col items-center justify-start overflow-hidden bg-[#F5F5F5]">
-      <div className="flex w-full max-w-[560px] flex-1 flex-col overflow-y-auto bg-white no-scrollbar pb-[100px] relative">
+      <div className="flex w-full max-w-[560px] flex-1 flex-col overflow-y-auto bg-white no-scrollbar pb-[90px] relative">
         <div className="edit-phone-flow w-full shadow-none !min-h-0 page-account">
           <div className="header-index">
         <div className="top-bar">
@@ -227,7 +227,7 @@ export default function Home() {
         </Link>
       </div>
 
-        <div className="footer-text pb-20 sm:pb-24">
+        <div className="footer-text !mb-4 mt-8 pb-4">
           เวอร์ชัน 10.8.0
           <br />
           © 2568 การไฟฟ้าส่วนภูมิภาค
