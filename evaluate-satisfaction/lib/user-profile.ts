@@ -97,11 +97,11 @@ export const sanitizeUserProfile = (profile: UserProfile): UserProfile => {
   };
 };
 
-export const getDigits = (value: string): string => value.replace(/\D/g, "");
+export const getDigits = (value: string): string => (value || "").replace(/\D/g, "");
 
 export const normalizePhone = (value: string): string => getDigits(value).slice(0, 10);
 
-export const normalizeEmail = (value: string): string => value.trim().toLowerCase();
+export const normalizeEmail = (value: string): string => (value || "").trim().toLowerCase();
 
 export const isValidThaiMobile = (phone: string): boolean => /^0\d{9}$/.test(normalizePhone(phone));
 
@@ -119,7 +119,7 @@ export const formatPhone = (phone: string): string => {
 export const maskPhoneForProfile = (phone: string): string => {
   const digits = normalizePhone(phone);
   if (digits.length !== 10) {
-    return phone;
+    return phone || "";
   }
   return `${digits.slice(0, 2)}*-***-${digits.slice(6, 10)}`;
 };
@@ -127,17 +127,19 @@ export const maskPhoneForProfile = (phone: string): string => {
 export const maskPhoneForOtp = (phone: string): string => {
   const digits = normalizePhone(phone);
   if (digits.length !== 10 || !digits.startsWith("0")) {
-    return phone;
+    return phone || "";
   }
   return `+66${digits.slice(1, 3)}*****${digits.slice(8, 10)}`;
 };
 
 export const maskEmail = (email: string): string => {
   const normalized = normalizeEmail(email);
+  if (!normalized) return "";
+  
   const [localPart, domain] = normalized.split("@");
 
   if (!localPart || !domain) {
-    return email;
+    return email || "";
   }
 
   if (localPart.length <= 2) {

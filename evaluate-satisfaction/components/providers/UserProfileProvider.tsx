@@ -32,30 +32,29 @@ const mergeWithDefaults = (stored: Partial<UserProfile>): UserProfile =>
     pendingEmail: normalizeEmail(stored.pendingEmail ?? ""),
   });
 
-const getInitialProfile = (): UserProfile => {
-  if (typeof window === "undefined") {
-    return DEFAULT_USER_PROFILE;
-  }
-
-  try {
-    const rawProfile = window.localStorage.getItem(USER_PROFILE_STORAGE_KEY);
-    if (rawProfile) {
-      const parsed = JSON.parse(rawProfile) as Partial<UserProfile>;
-      return mergeWithDefaults(parsed);
-    }
-  } catch {
-    return DEFAULT_USER_PROFILE;
-  }
-
-  return DEFAULT_USER_PROFILE;
-};
-
 export function UserProfileProvider({ children }: { children: React.ReactNode }) {
-  const [profile, setProfile] = useState<UserProfile>(getInitialProfile);
+  const [profile, setProfile] = useState<UserProfile>(DEFAULT_USER_PROFILE);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    window.localStorage.setItem(USER_PROFILE_STORAGE_KEY, JSON.stringify(profile));
-  }, [profile]);
+    try {
+      const rawProfile = window.localStorage.getItem(USER_PROFILE_STORAGE_KEY);
+      if (rawProfile) {
+        const parsed = JSON.parse(rawProfile) as Partial<UserProfile>;
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setProfile(mergeWithDefaults(parsed));
+      }
+    } catch {
+      // Ignored
+    }
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      window.localStorage.setItem(USER_PROFILE_STORAGE_KEY, JSON.stringify(profile));
+    }
+  }, [profile, isClient]);
 
   const setPendingPhone = useCallback((phone: string) => {
     setProfile((current) => ({ ...current, pendingPhone: normalizePhone(phone) }));
