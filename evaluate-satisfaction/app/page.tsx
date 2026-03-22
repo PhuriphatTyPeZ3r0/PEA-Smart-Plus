@@ -11,6 +11,7 @@ import NotificationView from "../components/views/NotificationView";
 import NotificationSettingsView from "../components/views/NotificationSettingsView";
 import NotificationDetailView from "../components/views/NotificationDetailView";
 import Servicemview from "../components/views/Servicemview";
+import ServiceView from "../components/views/ServiceView";
 import {
   DEFAULT_NOTIFICATION_SETTINGS,
   INITIAL_NOTIFICATIONS,
@@ -28,7 +29,8 @@ type ViewState =
   | "notification"
   | "notification-settings"
   | "notification-detail"
-  | "service";
+  | "service"
+  | "service-all";
 
 interface ActiveQuestion {
   questionId: number;
@@ -143,12 +145,19 @@ export default function AppFlow() {
             onOpenEvaluation={() => setView("rating")}
             onOpenNotifications={() => setView("notification")}
             onOpenService={() => setView("service")}
+            onOpenServiceAll={() => setView("service-all")}
           />
         )}
 
         {view === "service" && (
           <div className="absolute inset-0 z-[50] bg-white">
             <Servicemview onBack={() => setView("home")} />
+          </div>
+        )}
+
+        {view === "service-all" && (
+          <div className="absolute inset-0 z-[50] bg-white">
+            <ServiceView onBack={() => setView("home")} />
           </div>
         )}
 

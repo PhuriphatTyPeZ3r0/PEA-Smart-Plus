@@ -21,6 +21,7 @@ interface HomeViewProps {
   onOpenEvaluation: () => void;
   onOpenNotifications: () => void;
   onOpenService: () => void;
+  onOpenServiceAll: () => void;
 }
 
 const QUICK_ACTIONS = [
@@ -63,7 +64,7 @@ const RECOMMENDED_SERVICES = [
   },
 ];
 
-export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenNotifications, onOpenService }: HomeViewProps) {
+export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenNotifications, onOpenService, onOpenServiceAll }: HomeViewProps) {
   return (
     <div
       className={`relative flex h-full flex-1 flex-col overflow-hidden bg-[#F8FAFC] ${
@@ -142,7 +143,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
                 <div
                   key={item.label}
                   className="group flex min-w-0 cursor-pointer flex-col items-center gap-3"
-                  onClick={item.label === "ดูเพิ่มเติม" ? onOpenService : undefined}
+                  onClick={item.label === "ดูเพิ่มเติม" ? onOpenServiceAll : undefined}
                 >
                   <div className="flex aspect-square w-full max-w-[68px] items-center justify-center rounded-[24px] border border-slate-50 bg-white shadow-[0_10px_20px_-8px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-purple-50/20 group-hover:shadow-xl active:scale-90 sm:max-w-[76px]">
                     <Image
