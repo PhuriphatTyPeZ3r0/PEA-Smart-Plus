@@ -68,6 +68,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+          rel="stylesheet"
+        />
         <script dangerouslySetInnerHTML={{ __html: serviceWorkerScript }} />
       </head>
       <body className="min-h-full flex flex-col">
