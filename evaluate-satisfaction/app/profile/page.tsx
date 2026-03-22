@@ -225,13 +225,13 @@ export default function Home() {
         </Link>
       </div>
 
-      <div className="footer-text pb-[100px]">
+      <div className="footer-text pb-4">
         เวอร์ชัน 10.8.0
         <br />
         © 2568 การไฟฟ้าส่วนภูมิภาค
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 px-3 pb-safe-bottom pt-3 shadow-[0_-12px_32px_rgba(0,0,0,0.03)] backdrop-blur-2xl md:rounded-t-[32px] lg:px-6">
+      <div className="sticky bottom-0 z-50 w-full bg-white/95 px-3 pb-safe-bottom pt-3 shadow-[0_-12px_32px_rgba(0,0,0,0.03)] backdrop-blur-2xl md:rounded-t-[32px] lg:px-6">
         <div className="mx-auto flex w-full max-w-[1180px] items-center justify-around border-t border-slate-50/50 pt-1">
           <Link
             href="/"
