@@ -10,6 +10,7 @@ import SuccessView from "../components/views/SuccessView";
 import NotificationView from "../components/views/NotificationView";
 import NotificationSettingsView from "../components/views/NotificationSettingsView";
 import NotificationDetailView from "../components/views/NotificationDetailView";
+import Servicemview from "../components/views/Servicemview";
 import {
   DEFAULT_NOTIFICATION_SETTINGS,
   INITIAL_NOTIFICATIONS,
@@ -26,7 +27,8 @@ type ViewState =
   | "success"
   | "notification"
   | "notification-settings"
-  | "notification-detail";
+  | "notification-detail"
+  | "service";
 
 interface ActiveQuestion {
   questionId: number;
@@ -140,7 +142,14 @@ export default function AppFlow() {
             isActive={view === "home"}
             onOpenEvaluation={() => setView("rating")}
             onOpenNotifications={() => setView("notification")}
+            onOpenService={() => setView("service")}
           />
+        )}
+
+        {view === "service" && (
+          <div className="absolute inset-0 z-[50] bg-white">
+            <Servicemview onBack={() => setView("home")} />
+          </div>
         )}
 
         {view === "notification" && (
@@ -212,4 +221,3 @@ export default function AppFlow() {
     </div>
   );
 }
-
