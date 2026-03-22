@@ -37,31 +37,34 @@ export default function SuccessView({ onClose }: SuccessViewProps) {
           </div>
 
           <div className="absolute inset-0 flex items-center justify-center pt-8">
-            <div className="relative h-[157px] w-[157px]">
-              <Image
-                src="/asset/icons/evaluate-satisfaction-icon/Mask group.svg"
-                alt="Character"
-                fill
-                className="object-contain"
-              />
-            </div>
-          </div>
+            <div className="relative h-[157px] w-[260px]">
+              <div className="absolute left-1/2 top-0 h-[157px] w-[157px] -translate-x-1/2">
+                <Image
+                  src="/asset/icons/evaluate-satisfaction-icon/Mask group.svg"
+                  alt="Character"
+                  fill
+                  className="object-contain"
+                />
+              </div>
 
-          <div className="absolute left-[20%] top-[130px] h-[82px] w-[82px] origin-top-left -rotate-12">
-            <Image
-              src="/asset/icons/evaluate-satisfaction-icon/Frame 1321314288.svg"
-              alt="Decoration left"
-              width={82}
-              height={82}
-            />
-          </div>
-          <div className="absolute right-[10%] top-[130px] h-[57px] w-[102px]">
-            <Image
-              src="/asset/icons/evaluate-satisfaction-icon/Vector.svg"
-              alt="Decoration right"
-              width={102}
-              height={57}
-            />
+              <div className="absolute left-[14px] top-[50px] h-[82px] w-[82px] origin-top-left -rotate-12">
+                <Image
+                  src="/asset/icons/evaluate-satisfaction-icon/Frame 1321314288.svg"
+                  alt="Decoration left"
+                  width={82}
+                  height={82}
+                />
+              </div>
+
+              <div className="absolute right-[8px] top-[54px] h-[57px] w-[102px]">
+                <Image
+                  src="/asset/icons/evaluate-satisfaction-icon/Vector.svg"
+                  alt="Decoration right"
+                  width={102}
+                  height={57}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
