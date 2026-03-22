@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เปลี่ยนเบอร์โทรศัพท์สำเร็จ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container" style="background-color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; padding: 0 24px;">
+    
+    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: -10vh;">
+      <div style="position: relative; width: 287px; height: 287px; margin-bottom: 30px; display: flex; justify-content: center; align-items: center;">
+        <img src="../public/images/Gemini_Generated_Image_c0e76ec0e76ec0e7.png" alt="Success Illustration" style="width: 100%; height: 100%; object-fit: contain;" />
+      </div>
+      
+      <h1 style="font-size: 22px; font-weight: 700; color: #2b3346; margin-bottom: 15px; text-align: center;">
+        เปลี่ยนเบอร์โทรศัพท์สำเร็จ
+      </h1>
+      
+      <p style="font-size: 15px; color: #888; text-align: center; line-height: 1.6; padding: 0 10px;">
+        หมายเลข <span id="successPhone">0910243212</span> จะถูกใช้ในการ<br/>เข้าสู่ระบบและยืนยันตัวตนด้วย OTP ในครั้งต่อๆ ไป
+      </p>
+    </div>
+
+    <div style="padding-bottom: 40px;">
+      <a href="personal_info.html" style="text-decoration: none; display: block;">
+        <button class="primary-btn" style="width: 100%; padding: 16px; background-color: #8a2b8e; color: #fff; border: none; border-radius: 30px; font-size: 16px; font-weight: 600; cursor: pointer;">
+          ตกลง
+        </button>
+      </a>
+    </div>
+    
+  </div>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const updatedPhone = sessionStorage.getItem('updatedPhone');
+      if (updatedPhone) {
+        document.getElementById('successPhone').textContent = updatedPhone;
+      }
+    });
+  </script>
+</body>
+</html>

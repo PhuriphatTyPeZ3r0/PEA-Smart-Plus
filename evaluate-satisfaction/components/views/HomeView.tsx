@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import AccountSummaryCard from "../AccountSummaryCard";
 import FoundNewCACard from "../FoundNewCACard";
 import PrivilegeCard from "../PrivilegeCard";
@@ -12,6 +13,9 @@ interface HomeViewProps {
     name: string;
     balance: string;
     ca: string;
+    accountName: string;
+    dueDate: string;
+    newServiceLocationCount: number;
   };
   isActive: boolean;
   onOpenEvaluation: () => void;
@@ -27,8 +31,8 @@ const QUICK_ACTIONS = [
 
 const PRIVILEGES = [
   {
-    title: "ชาร์จคุ้ม! ชาร์จครั้งแรก ลดไปเลย 20 บาท",
-    description: "โปรแรงรับหน้าฝน เติมวันนี้ - 31 ส.ค. รับเงินเพิ่มทันที",
+    title: "ชาร์จคุ้ม ชาร์จครั้งแรก ลดทันที 20 บาท",
+    description: "โปรแรงรับหน้าฝน วันนี้ - 31 ส.ค. รับส่วนลดทันทีเมื่อชาร์จผ่านแอป",
     discount: "20.-",
     imageSrc: "/asset/icons/home-icon/Group 289549.svg",
   },
@@ -82,7 +86,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
               <div className="flex items-center gap-3">
                 <div className="h-12 w-12 overflow-hidden rounded-full border-[0.75px] border-white/20 p-0.5 sm:h-14 sm:w-14">
                   <Image
-                    src="/asset/home-img/Avatar.png"
+                    src="/avatar.png"
                     alt="Profile"
                     width={56}
                     height={56}
@@ -117,15 +121,15 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
           <div className="relative z-20 mx-auto -mt-16 w-full max-w-[1180px] px-5 sm:-mt-20 sm:px-6 lg:-mt-24 lg:px-10">
             <div className="grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)]">
               <AccountSummaryCard
-                accountName="บ้านแห่งความสุข"
+                accountName={mockUser.accountName}
                 accountNumber={mockUser.ca}
                 balance={mockUser.balance}
-                dueDate="28 ก.ย. 2568"
+                dueDate={mockUser.dueDate}
                 onPayBill={() => {}}
                 onSwitchAccount={() => {}}
               />
 
-              <FoundNewCACard count={1} />
+              <FoundNewCACard count={mockUser.newServiceLocationCount} />
             </div>
           </div>
         </div>
@@ -237,7 +241,10 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
             <span className="w-full truncate text-center text-[10px] font-normal tracking-tight">ชำระเงิน</span>
           </div>
 
-          <div className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-slate-400 transition-transform active:scale-95">
+          <Link
+            href="/profile"
+            className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-slate-400 transition-transform active:scale-95"
+          >
             <div className="flex h-8 w-8 items-center justify-center transition-all group-hover:scale-110">
               <Image
                 src="/asset/icons/home-icon/user-avatar (1) 1.svg"
@@ -248,7 +255,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
               />
             </div>
             <span className="w-full truncate text-center text-[10px] font-normal tracking-tight">โปรไฟล์</span>
-          </div>
+          </Link>
         </div>
       </div>
     </div>

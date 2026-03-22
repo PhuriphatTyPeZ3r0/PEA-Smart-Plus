@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แก้ไขข้อมูลพื้นฐาน</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container" style="background-color: #fff;">
+    <div class="top-bar-plain border-b">
+      <a href="personal_info.html" class="back-btn"><span class="material-symbols-outlined">chevron_left</span></a>
+      <div class="page-title" style="font-size: 18px; font-weight: 600;">แก้ไขข้อมูลพื้นฐาน</div>
+    </div>
+
+    <div class="edit-menu-list">
+      <a href="change_phone.html" class="edit-menu-item">
+        <div class="edit-menu-content">
+          <div class="edit-menu-title">เปลี่ยนเบอร์โทรศัพท์มือถือ</div>
+          <div class="edit-menu-subtitle" id="basicPhone">0910243212</div>
+        </div>
+        <span class="material-symbols-outlined chevron">chevron_right</span>
+      </a>
+      
+      <a href="change_email.html" class="edit-menu-item">
+        <div class="edit-menu-content">
+          <div class="edit-menu-title">เปลี่ยนอีเมล</div>
+          <div class="edit-menu-subtitle" id="basicEmail">charukitsp@gmail.com</div>
+        </div>
+        <span class="material-symbols-outlined chevron">chevron_right</span>
+      </a>
+    </div>
+  </div>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const updatedPhone = sessionStorage.getItem('updatedPhone');
+      if (updatedPhone) {
+        document.getElementById('basicPhone').textContent = updatedPhone;
+      }
+      const updatedEmail = sessionStorage.getItem('updatedEmail');
+      if (updatedEmail) {
+        document.getElementById('basicEmail').textContent = updatedEmail;
+      }
+    });
+  </script>
+</body>
+</html>

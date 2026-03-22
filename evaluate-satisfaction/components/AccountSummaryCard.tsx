@@ -37,7 +37,6 @@ const AccountSummaryCard: React.FC<AccountSummaryCardProps> = ({
         overflow: "hidden",
       }}
     >
-      {/* Top Section: Account Info & Switch Button */}
       <div
         style={{
           alignSelf: "stretch",
@@ -47,7 +46,15 @@ const AccountSummaryCard: React.FC<AccountSummaryCardProps> = ({
         }}
       >
         <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center", gap: 12 }}>
-          <div style={{ display: "inline-flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-start", gap: 2 }}>
+          <div
+            style={{
+              display: "inline-flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "flex-start",
+              gap: 2,
+            }}
+          >
             <div
               style={{
                 color: "#101828",
@@ -109,10 +116,15 @@ const AccountSummaryCard: React.FC<AccountSummaryCardProps> = ({
         </button>
       </div>
 
-      {/* Divider */}
-      <div style={{ alignSelf: "stretch", height: 0, outline: "0.5px solid rgba(255, 255, 255, 0.90)", outlineOffset: "-0.25px" }} />
+      <div
+        style={{
+          alignSelf: "stretch",
+          height: 0,
+          outline: "0.5px solid rgba(255, 255, 255, 0.90)",
+          outlineOffset: "-0.25px",
+        }}
+      />
 
-      {/* Bottom Section: Balance & Pay Button */}
       <div
         style={{
           alignSelf: "stretch",
@@ -121,8 +133,24 @@ const AccountSummaryCard: React.FC<AccountSummaryCardProps> = ({
           alignItems: "center",
         }}
       >
-        <div style={{ display: "inline-flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", gap: 16 }}>
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", gap: 4 }}>
+        <div
+          style={{
+            display: "inline-flex",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            alignItems: "flex-start",
+            gap: 16,
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-start",
+              alignItems: "flex-start",
+              gap: 4,
+            }}
+          >
             <div
               style={{
                 color: "#344054",
@@ -172,14 +200,23 @@ const AccountSummaryCard: React.FC<AccountSummaryCardProps> = ({
           </div>
         </div>
 
-        <div style={{ display: "inline-flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-end", gap: 4 }}>
+        <div
+          style={{
+            display: "inline-flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "flex-end",
+            gap: 4,
+          }}
+        >
           <button
             onClick={onPayBill}
             style={{
               padding: "10px 16px",
               background: "#A80689",
               borderRadius: 9999,
-              boxShadow: "0px 1px 2px rgba(16, 24, 40, 0.05), inset 0px -2px 0px rgba(16, 24, 40, 0.05), inset 0px 0px 0px 1px rgba(16, 24, 40, 0.18)",
+              boxShadow:
+                "0px 1px 2px rgba(16, 24, 40, 0.05), inset 0px -2px 0px rgba(16, 24, 40, 0.05), inset 0px 0px 0px 1px rgba(16, 24, 40, 0.18)",
               outline: "2px solid rgba(255, 255, 255, 0.10)",
               outlineOffset: "-2px",
               display: "inline-flex",

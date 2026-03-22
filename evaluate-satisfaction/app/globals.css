@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 @import "tailwindcss";
 
 @theme {
@@ -78,4 +79,535 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Edit Phone flow migration styles */
+.edit-phone-flow {
+  width: 100%;
+  max-width: 420px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  background-color: #fff;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-phone-flow .material-symbols-outlined {
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
+}
+
+.edit-phone-flow.page-account {
+  padding-bottom: 24px;
+}
+
+.edit-phone-flow.page-info {
+  background-color: #f9f9fc;
+}
+
+.edit-phone-flow .header-index {
+  background: linear-gradient(145deg, #fef0f7 0%, #fef0f7 40%, #fbd5ec 100%);
+  padding: 20px 20px 30px 20px;
+  position: relative;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.edit-phone-flow .top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.edit-phone-flow .top-bar-plain {
+  padding: 20px;
+  background: #fff;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.edit-phone-flow .top-bar-plain .back-btn {
+  position: absolute;
+  left: 20px;
+}
+
+.edit-phone-flow .back-btn {
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.edit-phone-flow .page-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.edit-phone-flow .settings-btn {
+  background: #fff;
+  border: 1px solid #9b2785;
+  color: #9b2785;
+  padding: 5px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.edit-phone-flow .settings-btn .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.edit-phone-flow .profile-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+}
+
+.edit-phone-flow .avatar-wrapper {
+  position: relative;
+}
+
+.edit-phone-flow .avatar {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  background-color: #fff;
+}
+
+.edit-phone-flow .avatar-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 26px;
+  height: 26px;
+  background-color: #9b2785;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.edit-phone-flow .avatar-badge .material-symbols-outlined {
+  font-size: 15px;
+}
+
+.edit-phone-flow .profile-info {
+  flex: 1;
+}
+
+.edit-phone-flow .profile-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #4a2153;
+  margin-bottom: 2px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.edit-phone-flow .profile-phone {
+  font-size: 12px;
+  color: #6b6b6b;
+  margin-bottom: 6px;
+}
+
+.edit-phone-flow .verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.edit-phone-flow .verified-badge .material-symbols-outlined {
+  font-size: 13px;
+}
+
+.edit-phone-flow .edit-btn {
+  width: 44px;
+  height: 44px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.2s;
+}
+
+.edit-phone-flow .edit-btn:active {
+  transform: scale(0.95);
+}
+
+.edit-phone-flow .section-title {
+  font-size: 12px;
+  color: #6b6b6b;
+  margin: 15px 20px 5px;
+  font-weight: 500;
+}
+
+.edit-phone-flow .menu-list {
+  background-color: #fff;
+}
+
+.edit-phone-flow .menu-item {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid #f2f2f2;
+  cursor: pointer;
+  color: #333;
+  text-decoration: none;
+}
+
+.edit-phone-flow .menu-item:last-child {
+  border-bottom: none;
+}
+
+.edit-phone-flow .menu-item:hover {
+  background-color: #fcfcfc;
+}
+
+.edit-phone-flow .menu-icon {
+  width: 24px;
+  margin-right: 15px;
+  color: #7b818d;
+  display: flex;
+  justify-content: center;
+}
+
+.edit-phone-flow .menu-content {
+  flex: 1;
+}
+
+.edit-phone-flow .menu-label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #2b2b2b;
+}
+
+.edit-phone-flow .menu-sublabel {
+  font-size: 11px;
+  color: #999;
+  margin-top: 2px;
+}
+
+.edit-phone-flow .menu-arrow {
+  color: #ccc;
+  font-size: 20px;
+}
+
+.edit-phone-flow .bottom-nav {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  transform: none;
+  width: 100%;
+  max-width: none;
+  background: #fff;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0 15px;
+  border-top: 1px solid #eee;
+  z-index: 10;
+  margin-top: auto;
+}
+
+.edit-phone-flow .nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #a0a0a0;
+  font-size: 11px;
+  cursor: pointer;
+  text-decoration: none;
+  gap: 4px;
+}
+
+.edit-phone-flow .nav-item.active {
+  color: #9b2785;
+  font-weight: 500;
+}
+
+.edit-phone-flow .nav-item .material-symbols-outlined {
+  font-size: 24px;
+}
+
+.edit-phone-flow .footer-text {
+  text-align: center;
+  font-size: 11px;
+  color: #888;
+  margin: 25px 0 30px;
+  line-height: 1.6;
+}
+
+.edit-phone-flow .toggle-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+}
+
+.edit-phone-flow .toggle-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2b2b2b;
+}
+
+.edit-phone-flow .toggle-switch {
+  width: 44px;
+  height: 24px;
+  background-color: #e0cae7;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+}
+
+.edit-phone-flow .toggle-switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: #7b6285;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.edit-phone-flow .info-card {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 8px;
+}
+
+.edit-phone-flow .info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.edit-phone-flow .info-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #534559;
+}
+
+.edit-phone-flow .edit-icon {
+  color: #9b2785;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.edit-phone-flow .info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 14px;
+  align-items: flex-start;
+  min-height: 24px;
+}
+
+.edit-phone-flow .info-row:last-child {
+  margin-bottom: 0;
+}
+
+.edit-phone-flow .info-label {
+  color: #555;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.edit-phone-flow .info-label .material-symbols-outlined {
+  font-size: 20px;
+  color: #777;
+}
+
+.edit-phone-flow .info-value {
+  color: #111;
+  text-align: right;
+  flex: 1.5;
+  word-break: break-word;
+  padding-left: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.edit-phone-flow .info-value.empty {
+  color: transparent;
+}
+
+.edit-phone-flow .delete-account {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  color: #d32f2f;
+  cursor: pointer;
+  background: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  border-top: 1px solid #eee;
+  margin-top: 10px;
+}
+
+.edit-phone-flow .delete-account .left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.edit-phone-flow .delete-account .material-symbols-outlined {
+  font-size: 22px;
+}
+
+.edit-phone-flow .border-b {
+  border-bottom: 1px solid #eee;
+}
+
+.edit-phone-flow .edit-menu-list {
+  background: #fff;
+}
+
+.edit-phone-flow .edit-menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  text-decoration: none;
+  color: #333;
+}
+
+.edit-phone-flow .edit-menu-item:active {
+  background-color: #f9f9f9;
+}
+
+.edit-phone-flow .edit-menu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.edit-phone-flow .edit-menu-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2b2b2b;
+}
+
+.edit-phone-flow .edit-menu-subtitle {
+  font-size: 13px;
+  color: #666;
+}
+
+.edit-phone-flow .chevron {
+  color: #ccc;
+  font-size: 24px;
+}
+
+.edit-phone-flow .form-container {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .edit-phone-flow {
+    max-width: 760px;
+    min-height: calc(100dvh - 2.5rem);
+    margin: 1.25rem auto;
+    border-radius: 28px;
+    box-shadow: 0 24px 80px rgba(15, 23, 42, 0.14);
+  }
+
+  .edit-phone-flow .header-index {
+    padding: 24px 28px 34px 28px;
+  }
+
+  .edit-phone-flow .top-bar-plain,
+  .edit-phone-flow .menu-item,
+  .edit-phone-flow .toggle-section,
+  .edit-phone-flow .info-card,
+  .edit-phone-flow .edit-menu-item,
+  .edit-phone-flow .delete-account {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .edit-phone-flow .section-title {
+    margin-left: 28px;
+    margin-right: 28px;
+  }
+
+  .edit-phone-flow .bottom-nav {
+    border-bottom-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .edit-phone-flow {
+    max-width: 860px;
+  }
+
+  .edit-phone-flow .profile-name {
+    font-size: 18px;
+  }
+
+  .edit-phone-flow .menu-label {
+    font-size: 15px;
+  }
+
+  .edit-phone-flow .edit-menu-title {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .edit-phone-flow .header-index,
+  .edit-phone-flow .top-bar-plain,
+  .edit-phone-flow .menu-item,
+  .edit-phone-flow .toggle-section,
+  .edit-phone-flow .info-card,
+  .edit-phone-flow .edit-menu-item,
+  .edit-phone-flow .delete-account {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
 }

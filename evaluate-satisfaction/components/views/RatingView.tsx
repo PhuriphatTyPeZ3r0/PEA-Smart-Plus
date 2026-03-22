@@ -46,31 +46,34 @@ export default function RatingView({
           </div>
 
           <div className="absolute inset-0 flex items-center justify-center pt-8">
-            <div className="relative h-[157px] w-[157px]">
-              <Image
-                src="/asset/icons/evaluate-satisfaction-icon/Mask group.svg"
-                alt="Character"
-                fill
-                className="object-contain"
-              />
-            </div>
-          </div>
+            <div className="relative h-[157px] w-[260px]">
+              <div className="absolute left-1/2 top-0 h-[157px] w-[157px] -translate-x-1/2">
+                <Image
+                  src="/asset/icons/evaluate-satisfaction-icon/Mask group.svg"
+                  alt="Character"
+                  fill
+                  className="object-contain"
+                />
+              </div>
 
-          <div className="absolute left-[20%] top-[130px] h-[82px] w-[82px] origin-top-left -rotate-12">
-            <Image
-              src="/asset/icons/evaluate-satisfaction-icon/Frame 1321314288.svg"
-              alt="Decoration left"
-              width={82}
-              height={82}
-            />
-          </div>
-          <div className="absolute right-[10%] top-[130px] h-[57px] w-[102px]">
-            <Image
-              src="/asset/icons/evaluate-satisfaction-icon/Vector.svg"
-              alt="Decoration right"
-              width={102}
-              height={57}
-            />
+              <div className="absolute left-[14px] top-[50px] h-[82px] w-[82px] origin-top-left -rotate-12">
+                <Image
+                  src="/asset/icons/evaluate-satisfaction-icon/Frame 1321314288.svg"
+                  alt="Decoration left"
+                  width={82}
+                  height={82}
+                />
+              </div>
+
+              <div className="absolute right-[8px] top-[54px] h-[57px] w-[102px]">
+                <Image
+                  src="/asset/icons/evaluate-satisfaction-icon/Vector.svg"
+                  alt="Decoration right"
+                  width={102}
+                  height={57}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -80,7 +83,7 @@ export default function RatingView({
               ให้คะแนนความพึงพอใจ
             </div>
             <div className="text-center text-base font-normal leading-6 text-[#101828]">
-              {activeQuestion?.question || "คุณรู้สึกพึงพอใจกับประสบการณ์การใช้งาน PEA Smart Plus หรือไม่"}
+              {activeQuestion?.question || "คุณรู้สึกพึงพอใจกับประสบการณ์การใช้งาน PEA Smart Plus ครั้งนี้มากเพียงใด"}
             </div>
           </div>
 
@@ -122,7 +125,9 @@ export default function RatingView({
             onClick={onRatingSubmit}
             disabled={rating === 0}
             className={`inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-full px-5 py-4 shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] transition-all active:scale-[0.98] ${
-              rating > 0 ? "bg-[#9B2677] text-white outline-[#9B2677]" : "cursor-not-allowed bg-[#F2F4F7] text-[#98A1B2] outline-[#E4E7EC]"
+              rating > 0
+                ? "bg-[#9B2677] text-white outline-[#9B2677]"
+                : "cursor-not-allowed bg-[#F2F4F7] text-[#98A1B2] outline-[#E4E7EC]"
             }`}
           >
             <div className="text-xl font-medium leading-7">ยืนยัน</div>

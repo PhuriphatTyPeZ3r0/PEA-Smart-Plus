@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ข้อมูลส่วนตัว</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container page-info">
+    <div class="top-bar-plain">
+      <a href="index.html" class="back-btn"><span class="material-symbols-outlined">chevron_left</span></a>
+      <div class="page-title">personal_info</div>
+    </div>
+
+    <div class="toggle-section">
+      <div class="toggle-label">แสดงข้อมูลทั้งหมด</div>
+      <div class="toggle-switch"></div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-header">
+        <div class="info-title">ข้อมูลส่วนตัว</div>
+        <span class="material-symbols-outlined edit-icon">edit</span>
+      </div>
+      <div class="info-row">
+        <div class="info-label">คำนำหน้า</div>
+        <div class="info-value">นาย</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">ชื่อ</div>
+        <div class="info-value">ปฏิพัทธ์</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">นามสกุล</div>
+        <div class="info-value">ชูนุ่น</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">citizen_no</div>
+        <div class="info-value">1819900528841</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">วัน/เดือน/ปีเกิด</div>
+        <div class="info-value">05/11/2548</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-header">
+        <div class="info-title">ข้อมูลพื้นฐาน</div>
+        <a href="edit_basic_info.html"><span class="material-symbols-outlined edit-icon">edit</span></a>
+      </div>
+      <div class="info-row">
+        <div class="info-label"><span class="material-symbols-outlined">phone_iphone</span> เบอร์โทรศัพท์</div>
+        <div class="info-value" id="personalPhone">0910243212</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label"><span class="material-symbols-outlined">mail</span> อีเมล</div>
+        <div class="info-value" id="personalEmail">charukitsp@gmail.com</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-header">
+        <div class="info-title">ที่อยู่</div>
+        <span class="material-symbols-outlined edit-icon">edit</span>
+      </div>
+      <div class="info-row">
+        <div class="info-label">citizen_card_address</div>
+        <div class="info-value">บ้านเลขที่ 95 ถ.มหาราช ต.ปากน้ำ อ.เมืองกระบี่ จ.กระบี่ 81000</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">ที่อยู่ปัจจุบัน</div>
+        <div class="info-value">บ้านเลขที่ 95 ถ.มหาราช ต.ปากน้ำ อ.เมืองกระบี่ จ.กระบี่ 81000</div>
+      </div>
+    </div>
+
+    <div class="delete-account">
+      <div class="left">
+        <span class="material-symbols-outlined">person_remove</span>
+        ลบบัญชี
+      </div>
+      <span class="material-symbols-outlined" style="color: #ccc;">chevron_right</span>
+    </div>
+  </div>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const updatedPhone = sessionStorage.getItem('updatedPhone');
+      if (updatedPhone) {
+        document.getElementById('personalPhone').textContent = updatedPhone;
+      }
+      const updatedEmail = sessionStorage.getItem('updatedEmail');
+      if (updatedEmail) {
+        document.getElementById('personalEmail').textContent = updatedEmail;
+      }
+    });
+  </script>
+</body>
+</html>

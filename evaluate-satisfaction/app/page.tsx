@@ -17,7 +17,7 @@ import {
   type NotificationItem,
   type NotificationPreferences,
 } from "../components/views/notificationData";
-
+import { useUserProfile } from "@/components/providers/UserProfileProvider";
 type ViewState =
   | "loading"
   | "home"
@@ -38,15 +38,8 @@ const ACTIVE_QUESTION: ActiveQuestion = {
   question: "คุณรู้สึกพึงพอใจกับประสบการณ์การใช้งาน PEA Smart Plus ครั้งนี้มากเพียงใด",
 };
 
-const MOCK_USER = {
-  id: "90",
-  idenNumber: "oPunVQb7OgaT3y6lyuUDrU+oCRct4OBM8kNgjGw=",
-  name: "คุณ ภูริพัฒน์ เหมกุล",
-  balance: "1,260.52",
-  ca: "020001234567",
-};
-
 export default function AppFlow() {
+  const { profile } = useUserProfile();
   const [view, setView] = useState<ViewState>("loading");
   const [selectedNotiId, setSelectedNotiId] = useState<string | null>(null);
   const [notifications, setNotifications] = useState<NotificationItem[]>(INITIAL_NOTIFICATIONS);
@@ -58,9 +51,19 @@ export default function AppFlow() {
   const [hasShownEvaluation, setHasShownEvaluation] = useState<boolean>(false);
 
   const selectedNotification = notifications.find((item) => item.id === selectedNotiId) ?? null;
+  const sharedUser = {
+    id: profile.id,
+    idenNumber: profile.idenNumber,
+    name: profile.fullName,
+    balance: profile.balance,
+    ca: profile.ca,
+    accountName: profile.accountName,
+    dueDate: profile.dueDate,
+    newServiceLocationCount: profile.newServiceLocationCount,
+  };
 
   useEffect(() => {
-    localStorage.setItem("UserAccIdenNumber", MOCK_USER.idenNumber);
+    localStorage.setItem("UserAccIdenNumber", profile.idenNumber);
     localStorage.setItem("SetLanguage", "TH");
 
     const timer = setTimeout(() => {
@@ -68,7 +71,7 @@ export default function AppFlow() {
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [profile.idenNumber]);
 
   useEffect(() => {
     if (view === "home" && !hasShownEvaluation) {
@@ -133,7 +136,7 @@ export default function AppFlow() {
 
         {view !== "loading" && (
           <HomeView
-            mockUser={MOCK_USER}
+            mockUser={sharedUser}
             isActive={view === "home"}
             onOpenEvaluation={() => setView("rating")}
             onOpenNotifications={() => setView("notification")}
@@ -209,3 +212,4 @@ export default function AppFlow() {
     </div>
   );
 }
+

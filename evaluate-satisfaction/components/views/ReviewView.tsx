@@ -17,11 +17,11 @@ export default function ReviewView({ comment, setComment, onReviewSubmit }: Revi
         </div>
 
         <div className="flex h-44 w-full max-w-[560px] flex-col items-start justify-start gap-1.5">
-          <div className="flex flex-1 w-full flex-col items-start justify-start gap-1.5">
-            <div className="relative inline-flex flex-1 w-full items-start justify-start gap-2 overflow-hidden rounded-2xl bg-white px-3.5 py-3 shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] outline-[#D0D5DD]">
+          <div className="flex w-full flex-1 flex-col items-start justify-start gap-1.5">
+            <div className="relative inline-flex w-full flex-1 items-start justify-start gap-2 overflow-hidden rounded-2xl bg-white px-3.5 py-3 shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] outline-[#D0D5DD]">
               <textarea
                 value={comment}
-                onChange={(e) => setComment(e.target.value)}
+                onChange={(event) => setComment(event.target.value)}
                 placeholder="แบ่งปันประสบการณ์ของคุณกับเรา เพื่อพัฒนาบริการให้ดียิ่งขึ้น"
                 className="flex-1 self-stretch resize-none border-none bg-transparent text-base font-normal leading-6 text-[#667085] focus:ring-0"
               />

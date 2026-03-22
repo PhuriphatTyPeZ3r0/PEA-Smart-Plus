@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ยืนยันหมายเลขโทรศัพท์</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container" style="background-color: #ffffff; min-height: 100vh; padding: 0;">
+
+
+    <div class="form-container" style="padding: 20px 24px;">
+      <a href="change_phone.html" style="display: inline-block; margin-bottom: 35px; color: #111; text-decoration: none;">
+        <span class="material-symbols-outlined" style="font-size: 24px; font-weight: bold;">chevron_left</span>
+      </a>
+      
+      <h1 style="font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 16px;">
+        ยืนยันหมายเลขโทรศัพท์
+      </h1>
+      <p style="font-size: 14px; color: #333; margin-bottom: 4px; font-weight: 400;">
+        กรอกรหัส OTP 6 หลัก ที่ส่งไปยัง <span id="displayPhone">+6691*****12</span>
+      </p>
+      <p style="font-size: 14px; color: #333; margin-bottom: 60px; font-weight: 400;">
+        หากยังไม่ได้รับ กดขอรหัสใหม่ได้เมื่อครบกำหนดเวลา
+      </p>
+
+      <div style="display: flex; justify-content: space-between; margin-bottom: 50px; gap: 8px;">
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-input" style="width: 100%; height: 40px; border: none; border-bottom: 1.5px solid #bbb; text-align: center; font-size: 22px; outline: none; background-color: transparent; border-radius: 0;" />
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-input" style="width: 100%; height: 40px; border: none; border-bottom: 1.5px solid #bbb; text-align: center; font-size: 22px; outline: none; background-color: transparent; border-radius: 0;" />
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-input" style="width: 100%; height: 40px; border: none; border-bottom: 1.5px solid #bbb; text-align: center; font-size: 22px; outline: none; background-color: transparent; border-radius: 0;" />
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-input" style="width: 100%; height: 40px; border: none; border-bottom: 1.5px solid #bbb; text-align: center; font-size: 22px; outline: none; background-color: transparent; border-radius: 0;" />
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-input" style="width: 100%; height: 40px; border: none; border-bottom: 1.5px solid #bbb; text-align: center; font-size: 22px; outline: none; background-color: transparent; border-radius: 0;" />
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-input" style="width: 100%; height: 40px; border: none; border-bottom: 1.5px solid #bbb; text-align: center; font-size: 22px; outline: none; background-color: transparent; border-radius: 0;" />
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-size: 14px; color: #333; font-weight: 400;">
+          รหัสอ้างอิง: 16DD8D
+        </div>
+        <div id="countdownTimer" style="font-size: 14px; color: #db5b94; font-weight: 600; cursor: pointer;">
+          ขอรหัสใหม่ในอีก 3:00 นาที
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const inputs = document.querySelectorAll('.otp-input');
+    
+    inputs.forEach((input, index) => {
+      input.addEventListener('input', (e) => {
+        // Allow only numbers
+        input.value = input.value.replace(/[^0-9]/g, '');
+        
+        if (input.value.length === 1 && index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+        
+        // Check if all are filled
+        const allFilled = Array.from(inputs).every(inp => inp.value.length === 1);
+        if (allFilled) {
+          sessionStorage.setItem('updatedPhone', sessionStorage.getItem('newPhone'));
+          setTimeout(() => {
+            window.location.href = 'success_phone.html';
+          }, 300);
+        }
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && input.value === '' && index > 0) {
+          inputs[index - 1].focus();
+        }
+      });
+    });
+    
+    window.addEventListener('DOMContentLoaded', () => {
+      if(inputs.length > 0) inputs[0].focus();
+
+      // Phone formatting display
+      const phone = sessionStorage.getItem('newPhone');
+      if (phone && phone.length >= 10 && phone.startsWith('0')) {
+        const withoutZero = phone.substring(1);
+        const firstTwo = withoutZero.substring(0, 2);
+        const lastTwo = withoutZero.substring(withoutZero.length - 2);
+        const middleMask = '*'.repeat(withoutZero.length - 4);
+        document.getElementById('displayPhone').textContent = `+66${firstTwo}${middleMask}${lastTwo}`;
+      } else if (phone) {
+        document.getElementById('displayPhone').textContent = phone;
+      }
+
+      // Countdown timer logic
+      let timeLeft = 180; // 3 minutes
+      const timerEl = document.getElementById('countdownTimer');
+      let timerId = setInterval(() => {
+        if(timeLeft > 0) {
+          timeLeft--;
+          const minutes = Math.floor(timeLeft / 60);
+          const seconds = timeLeft % 60;
+          timerEl.textContent = `ขอรหัสใหม่ในอีก ${minutes}:${seconds < 10 ? '0'+seconds : seconds} นาที`;
+        } else {
+          clearInterval(timerId);
+          timerEl.textContent = 'ขอรหัสใหม่';
+          timerEl.style.cursor = 'pointer';
+          timerEl.style.color = '#84328f';
+        }
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
