@@ -225,33 +225,85 @@ export default function Home() {
         </Link>
       </div>
 
-      <div className="footer-text">
+      <div className="footer-text pb-[100px]">
         เวอร์ชัน 10.8.0
         <br />
         © 2568 การไฟฟ้าส่วนภูมิภาค
       </div>
 
-      <div className="bottom-nav">
-        <Link href="/" className="nav-item">
-          <span className="material-symbols-outlined">home</span>
-          หน้าหลัก
-        </Link>
-        <Link href="#" className="nav-item">
-          <span className="material-symbols-outlined">location_on</span>
-          สถานที่ใช้ไฟ
-        </Link>
-        <Link href="#" className="nav-item">
-          <span className="material-symbols-outlined">swap_horiz</span>
-          บริการ
-        </Link>
-        <Link href="#" className="nav-item">
-          <span className="material-symbols-outlined">toll</span>
-          พอยต์
-        </Link>
-        <Link href="/profile" className="nav-item active">
-          <span className="material-symbols-outlined">person</span>
-          โปรไฟล์
-        </Link>
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 px-3 pb-safe-bottom pt-3 shadow-[0_-12px_32px_rgba(0,0,0,0.03)] backdrop-blur-2xl md:rounded-t-[32px] lg:px-6">
+        <div className="mx-auto flex w-full max-w-[1180px] items-center justify-around border-t border-slate-50/50 pt-1">
+          <Link
+            href="/"
+            className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-slate-400 transition-transform active:scale-95"
+          >
+            <div className="flex h-8 w-8 items-center justify-center transition-all group-hover:scale-110">
+              <Image
+                src="/asset/icons/home-icon/Vector-3.svg"
+                alt="Home"
+                width={22}
+                height={22}
+                className="opacity-60 transition-all group-hover:opacity-100"
+              />
+            </div>
+            <span className="text-center text-[10px] font-normal tracking-tight">หน้าหลัก</span>
+          </Link>
+
+          <Link href="#" className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-slate-400 transition-transform active:scale-95">
+            <div className="flex h-8 w-8 items-center justify-center transition-all group-hover:scale-110">
+              <Image
+                src="/asset/icons/home-icon/Nav Bar-1.svg"
+                alt="Usage"
+                width={22}
+                height={22}
+                className="opacity-60 transition-all group-hover:opacity-100"
+              />
+            </div>
+            <span className="w-full truncate px-1 text-center text-[10px] font-normal tracking-tight">สถานที่ใช้ไฟ</span>
+          </Link>
+
+          <Link href="#" className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-slate-400 transition-transform active:scale-95">
+            <div className="flex h-8 w-8 items-center justify-center transition-all group-hover:scale-110">
+              <Image
+                src="/asset/icons/home-icon/Nav Bar-2.svg"
+                alt="Services"
+                width={22}
+                height={22}
+                className="opacity-60 transition-all group-hover:opacity-100"
+              />
+            </div>
+            <span className="w-full truncate text-center text-[10px] font-normal tracking-tight">บริการ</span>
+          </Link>
+
+          <Link href="#" className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-slate-400 transition-transform active:scale-95">
+            <div className="flex h-8 w-8 items-center justify-center transition-all group-hover:scale-110">
+              <Image
+                src="/asset/icons/home-icon/Nav Bar.svg"
+                alt="Pay"
+                width={22}
+                height={22}
+                className="opacity-60 transition-all group-hover:opacity-100"
+              />
+            </div>
+            <span className="w-full truncate text-center text-[10px] font-normal tracking-tight">ชำระเงิน</span>
+          </Link>
+
+          <div className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-[#74045F] transition-transform active:scale-95">
+            <div className="relative flex h-8 w-8 items-center justify-center">
+              <div className="absolute inset-0 scale-125 rounded-full bg-purple-50 opacity-40 blur-sm" />
+              <div className="flex h-6 w-6 items-center justify-center rounded bg-[radial-gradient(ellipse_75.81%_145.75%_at_49.46%_-2.02%,_#FF44DB_0%,_#A80689_100%)] shadow-[inset_0_1px_3px_rgba(255,255,255,0.5)]">
+                <Image
+                  src="/asset/icons/home-icon/user-avatar (1) 1.svg"
+                  alt="Profile"
+                  width={16}
+                  height={16}
+                  className="brightness-0 invert"
+                />
+              </div>
+            </div>
+            <span className="w-full truncate text-center text-[10px] font-bold tracking-tight">โปรไฟล์</span>
+          </div>
+        </div>
       </div>
     </div>
   );
