@@ -9,8 +9,10 @@ export default function Home() {
   const { profile } = useUserProfile();
 
   return (
-    <div className="edit-phone-flow app-container page-account">
-      <div className="header-index">
+    <div className="flex h-screen w-full flex-col items-center justify-start overflow-hidden bg-[#F5F5F5]">
+      <div className="flex w-full max-w-[560px] flex-1 flex-col overflow-y-auto bg-white no-scrollbar pb-[100px] relative">
+        <div className="edit-phone-flow w-full shadow-none !min-h-0 page-account">
+          <div className="header-index">
         <div className="top-bar">
           <Link href="/" className="back-btn">
             <span className="material-symbols-outlined">chevron_left</span>
@@ -225,13 +227,14 @@ export default function Home() {
         </Link>
       </div>
 
-      <div className="footer-text pb-4">
-        เวอร์ชัน 10.8.0
-        <br />
-        © 2568 การไฟฟ้าส่วนภูมิภาค
+        <div className="footer-text pb-20 sm:pb-24">
+          เวอร์ชัน 10.8.0
+          <br />
+          © 2568 การไฟฟ้าส่วนภูมิภาค
+        </div>
       </div>
 
-      <div className="sticky bottom-0 z-50 w-full bg-white/95 px-3 pb-safe-bottom pt-3 shadow-[0_-12px_32px_rgba(0,0,0,0.03)] backdrop-blur-2xl md:rounded-t-[32px] lg:px-6">
+      <div className="absolute bottom-0 left-0 right-0 z-[100] w-full bg-white/95 px-3 pb-safe-bottom pt-3 shadow-[0_-12px_32px_rgba(0,0,0,0.03)] backdrop-blur-2xl md:rounded-t-[32px] lg:px-6">
         <div className="mx-auto flex w-full max-w-[1180px] items-center justify-around border-t border-slate-50/50 pt-1">
           <Link
             href="/"
@@ -306,5 +309,6 @@ export default function Home() {
         </div>
       </div>
     </div>
+  </div>
   );
 }
