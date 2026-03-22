@@ -473,30 +473,6 @@ body {
   color: transparent;
 }
 
-.edit-phone-flow .delete-account {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  color: #d32f2f;
-  cursor: pointer;
-  background: #fff;
-  font-weight: 600;
-  font-size: 15px;
-  border-top: 1px solid #eee;
-  margin-top: 10px;
-}
-
-.edit-phone-flow .delete-account .left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.edit-phone-flow .delete-account .material-symbols-outlined {
-  font-size: 22px;
-}
-
 .edit-phone-flow .border-b {
   border-bottom: 1px solid #eee;
 }
@@ -564,8 +540,7 @@ body {
   .edit-phone-flow .menu-item,
   .edit-phone-flow .toggle-section,
   .edit-phone-flow .info-card,
-  .edit-phone-flow .edit-menu-item,
-  .edit-phone-flow .delete-account {
+  .edit-phone-flow .edit-menu-item {
     padding-left: 28px;
     padding-right: 28px;
   }
@@ -605,8 +580,7 @@ body {
   .edit-phone-flow .menu-item,
   .edit-phone-flow .toggle-section,
   .edit-phone-flow .info-card,
-  .edit-phone-flow .edit-menu-item,
-  .edit-phone-flow .delete-account {
+  .edit-phone-flow .edit-menu-item {
     padding-left: 14px;
     padding-right: 14px;
   }

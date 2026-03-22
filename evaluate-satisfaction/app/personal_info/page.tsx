@@ -83,16 +83,6 @@ export default function PersonalInfo() {
           <div className="info-value">{profile.currentAddress}</div>
         </div>
       </div>
-
-      <div className="delete-account">
-        <div className="left">
-          <span className="material-symbols-outlined">person_remove</span>
-          ลบบัญชี
-        </div>
-        <span className="material-symbols-outlined" style={{ color: "#ccc" }}>
-          chevron_right
-        </span>
-      </div>
     </div>
   );
 }
