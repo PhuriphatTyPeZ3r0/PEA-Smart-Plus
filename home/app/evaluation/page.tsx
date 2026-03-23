@@ -23,7 +23,7 @@ export default function EvaluationPage() {
 
   const handleRatingSubmit = () => {
     if (rating > 0) {
-      setView("success");
+      setView("review");
     }
   };
 

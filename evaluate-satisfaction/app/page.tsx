@@ -7,6 +7,7 @@ import HomeView from "../components/views/HomeView";
 import RatingView from "../components/views/RatingView";
 import ReviewView from "../components/views/ReviewView";
 import SuccessView from "../components/views/SuccessView";
+import GlobalTabBar from "../components/GlobalTabBar";
 import { useUserProfile } from "@/components/providers/UserProfileProvider";
 type ViewState =
   | "loading"
@@ -55,7 +56,7 @@ export default function AppFlow() {
 
   const handleRatingSubmit = () => {
     if (rating > 0) {
-      setView("success");
+      setView("review");
     }
   };
 
@@ -81,6 +82,8 @@ export default function AppFlow() {
             onOpenEvaluation={() => setView("rating")}
           />
         )}
+
+        {view === "home" && <GlobalTabBar />}
 
         {(view === "rating" || view === "review" || view === "success") && (
           <div className="absolute inset-0 z-[100] bg-white">

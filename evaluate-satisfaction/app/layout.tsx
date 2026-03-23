@@ -32,10 +32,53 @@ const serviceWorkerScript =
   process.env.NODE_ENV === "production"
     ? `
       if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function () {
-          navigator.serviceWorker.register('/sw.js').catch(function (err) {
-            console.log('ServiceWorker registration failed:', err);
+        var hasRefreshed = false;
+
+        navigator.serviceWorker.addEventListener('controllerchange', function () {
+          if (hasRefreshed) {
+            return;
+          }
+          hasRefreshed = true;
+          window.location.reload();
+        });
+
+        window.addEventListener('online', function () {
+          navigator.serviceWorker.getRegistration().then(function (registration) {
+            if (registration) {
+              registration.update();
+            }
           });
+        });
+
+        window.addEventListener('load', function () {
+          navigator.serviceWorker
+            .register('/sw.js')
+            .then(function (registration) {
+              if (registration.waiting) {
+                registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+              }
+
+              registration.addEventListener('updatefound', function () {
+                var newWorker = registration.installing;
+                if (!newWorker) {
+                  return;
+                }
+                newWorker.addEventListener('statechange', function () {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    if (registration.waiting) {
+                      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+                    }
+                  }
+                });
+              });
+
+              setInterval(function () {
+                registration.update();
+              }, 60 * 60 * 1000);
+            })
+            .catch(function (err) {
+              console.log('ServiceWorker registration failed:', err);
+            });
         });
       }
     `
