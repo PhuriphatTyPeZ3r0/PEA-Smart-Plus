@@ -68,7 +68,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeV
         !isActive ? "pointer-events-none" : "animate-zoom-in"
       }`}
     >
-      <div className="flex-1 overflow-y-auto no-scrollbar pb-[132px] lg:pb-[144px]">
+      <div className="flex-1 overflow-y-auto no-scrollbar pb-[116px] sm:pb-[124px] lg:pb-[138px]">
         <div className="relative overflow-hidden">
           <div className="relative h-[220px] sm:h-[260px] lg:h-[320px] xl:h-[360px]">
             <Image
@@ -132,15 +132,15 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeV
           </div>
         </div>
 
-        <div className="mx-auto w-full max-w-[1180px] px-5 pb-10 pt-8 sm:px-6 lg:px-10">
-          <section className="mx-auto max-w-[720px]">
-            <div className="grid grid-cols-4 gap-x-2 gap-y-10 sm:gap-x-4 lg:gap-x-6">
+        <div className="mx-auto w-full max-w-[1180px] px-4 pb-10 pt-8 sm:px-6 lg:px-10">
+          <section className="mx-auto w-full max-w-[760px]">
+            <div className="grid grid-cols-4 gap-x-2 gap-y-7 sm:gap-x-4 sm:gap-y-8 lg:gap-x-6">
               {QUICK_ACTIONS.map((item) => (
                 <div
                   key={item.label}
                   className="group flex min-w-0 cursor-pointer flex-col items-center gap-3"
                 >
-                  <div className="flex aspect-square w-full max-w-[68px] items-center justify-center rounded-[24px] border border-slate-50 bg-white shadow-[0_10px_20px_-8px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-purple-50/20 group-hover:shadow-xl active:scale-90 sm:max-w-[76px]">
+                  <div className="flex aspect-square w-full max-w-[62px] items-center justify-center rounded-[20px] border border-slate-50 bg-white shadow-[0_10px_20px_-8px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-purple-50/20 group-hover:shadow-xl active:scale-90 sm:max-w-[72px] lg:max-w-[78px]">
                     <Image
                       src={`/asset/icons/home-icon/${item.icon}`}
                       alt={item.label}
@@ -149,7 +149,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeV
                       className="h-1/2 w-1/2 object-contain"
                     />
                   </div>
-                  <span className="min-h-[2.6em] px-0.5 text-center text-[11px] font-medium leading-[1.3] text-[#344054] transition-colors line-clamp-2 group-hover:text-[#74045F] sm:text-xs">
+                  <span className="min-h-[2.6em] px-0.5 text-center text-[10px] font-medium leading-[1.3] text-[#344054] transition-colors line-clamp-2 group-hover:text-[#74045F] sm:text-xs lg:text-[13px]">
                     {item.label}
                   </span>
                 </div>
@@ -174,7 +174,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeV
               <h2 className="text-lg font-semibold text-black">บริการแนะนำ</h2>
               <button className="text-sm font-medium text-[#A80689] transition-transform active:scale-95">ดูทั้งหมด</button>
             </div>
-            <div className="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2">
+            <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible xl:grid-cols-3">
               {RECOMMENDED_SERVICES.map((item, index) => (
                 <RecommendedServiceCard key={`${item.title}-${index}`} {...item} />
               ))}
