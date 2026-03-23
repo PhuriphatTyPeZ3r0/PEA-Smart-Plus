@@ -13,8 +13,11 @@ export const metadata: Metadata = {
     title: "PEA Smart Plus",
   },
   icons: {
-    icon: "/pwa-icon.png",
-    apple: "/pwa-icon.png",
+    icon: [
+      { url: "/pwa-icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/pwa-icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/pwa-icon-192.png",
   }
 };
 
@@ -50,7 +53,11 @@ const serviceWorkerScript =
             caches.keys().then(function (keys) {
               keys
                 .filter(function (key) {
-                  return key.indexOf('evaluate-satisfaction-') === 0;
+                  return (
+                    key.indexOf('evaluate-satisfaction-') === 0 ||
+                    key.indexOf('home-pwa-') === 0 ||
+                    key.indexOf('pea-smart-plus-home-') === 0
+                  );
                 })
                 .forEach(function (key) {
                   caches.delete(key);
