@@ -9,7 +9,7 @@ interface RecommendedServiceCardProps {
 
 const RecommendedServiceCard: React.FC<RecommendedServiceCardProps> = ({ title, description, imageSrc }) => {
   return (
-    <div className="w-[220px] shrink-0 bg-white rounded-2xl shadow-[0_1px_2px_rgba(16,24,40,0.05)] border border-slate-50 flex flex-col justify-start items-start overflow-hidden sm:w-[240px] lg:w-full">
+    <div className="w-[220px] shrink-0 snap-start bg-white rounded-2xl shadow-[0_1px_2px_rgba(16,24,40,0.05)] border border-slate-50 flex flex-col justify-start items-start overflow-hidden sm:w-[240px]">
       <div className="self-stretch h-44 relative">
         <Image src={imageSrc} alt={title} fill className="object-cover" />
       </div>

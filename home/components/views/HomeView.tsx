@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import AccountSummaryCard from "../AccountSummaryCard";
 import FoundNewCACard from "../FoundNewCACard";
-import PrivilegeCard from "../PrivilegeCard";
 import RecommendedServiceCard from "../RecommendedServiceCard";
 
 interface HomeViewProps {
@@ -20,7 +18,6 @@ interface HomeViewProps {
   isActive: boolean;
   onOpenEvaluation: () => void;
   onOpenNotifications: () => void;
-  onOpenService: () => void;
   onOpenServiceAll: () => void;
 }
 
@@ -33,16 +30,22 @@ const QUICK_ACTIONS = [
 
 const PRIVILEGES = [
   {
-    title: "ชาร์จคุ้ม ชาร์จครั้งแรก ลดทันที 20 บาท",
-    description: "โปรแรงรับหน้าฝน วันนี้ - 31 ส.ค. รับส่วนลดทันทีเมื่อชาร์จผ่านแอป",
-    discount: "20.-",
-    imageSrc: "/asset/icons/home-icon/Group 289549.svg",
+    title: "PEA Volta ครอบคลุมทั่วไทย",
+    description: "ชาร์จมั่นใจทุกเส้นทาง",
+    discount: "",
+    imageSrc: "/images/banner/1-3_0.png",
   },
   {
-    title: "รับส่วนลดค่าไฟสูงสุด 10% เมื่อชำระผ่านแอป",
-    description: "สิทธิพิเศษสำหรับลูกค้า PEA Smart Plus เท่านั้น",
-    discount: "10%",
-    imageSrc: "/asset/icons/home-icon/Group 289549.svg",
+    title: "PEA ติดโซล่าเซลล์บนหลังคา",
+    description: "ลดค่าไฟฟ้า ประหยัด คุ้มค่า",
+    discount: "",
+    imageSrc: "/images/banner/2_th_0.png",
+  },
+  {
+    title: "ชาร์จ PEA Volta ครั้งแรกลด 20 บาท",
+    description: "พร้อมดูแลทุกวันทุกเส้นทาง",
+    discount: "",
+    imageSrc: "/images/banner/3_th_0.png",
   },
 ];
 
@@ -50,21 +53,39 @@ const RECOMMENDED_SERVICES = [
   {
     title: "บริการติดตั้ง Solar",
     description: "ใช้ 250 คะแนน แลกส่วนลด 20 บาท",
-    imageSrc: "https://placehold.co/172x172",
+    imageSrc: "/images/banner/3_th_0.png",
   },
   {
     title: "ตรวจสอบสายไฟ",
     description: "บริการตรวจสอบระบบไฟฟ้าภายในบ้าน",
-    imageSrc: "https://placehold.co/172x172",
+    imageSrc: "/images/banner/3_th_0.png",
   },
   {
     title: "ขยายเขตไฟฟ้า",
     description: "ยื่นขอรับบริการออนไลน์ได้ทันที",
-    imageSrc: "https://placehold.co/172x172",
+    imageSrc: "/images/banner/3_th_0.png",
   },
 ];
 
-export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenNotifications, onOpenService, onOpenServiceAll }: HomeViewProps) {
+export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenNotifications, onOpenServiceAll }: HomeViewProps) {
+  const [activeBanner, setActiveBanner] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveBanner((current) => (current + 1) % PRIVILEGES.length);
+    }, 3200);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const goToPreviousBanner = () => {
+    setActiveBanner((current) => (current - 1 + PRIVILEGES.length) % PRIVILEGES.length);
+  };
+
+  const goToNextBanner = () => {
+    setActiveBanner((current) => (current + 1) % PRIVILEGES.length);
+  };
+
   return (
     <div
       className={`relative flex h-full flex-1 flex-col overflow-hidden bg-[#F8FAFC] ${
@@ -167,10 +188,69 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
               <h2 className="text-lg font-semibold text-black">สิทธิพิเศษ</h2>
               <button className="text-sm font-medium text-[#A80689] transition-transform active:scale-95">ดูทั้งหมด</button>
             </div>
-            <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 lg:grid lg:grid-cols-2 lg:overflow-visible">
-              {PRIVILEGES.map((item) => (
-                <PrivilegeCard key={item.title} {...item} />
-              ))}
+            <div className="relative pb-2">
+              <div className="overflow-hidden rounded-[20px]">
+                <div
+                  className="flex transition-transform duration-500 ease-out"
+                  style={{ transform: `translateX(-${activeBanner * 100}%)` }}
+                >
+                  {PRIVILEGES.map((item) => (
+                    <div key={`${item.imageSrc}-${item.title}`} className="w-full shrink-0">
+                      <div
+                        style={{
+                          width: "100%",
+                          background: "linear-gradient(rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%)",
+                          borderRadius: "20px",
+                          boxShadow: "rgba(145, 158, 171, 0.12) 0px 12px 24px -4px, rgba(145, 158, 171, 0.2) 0px 0px 2px 0px",
+                          outline: "white solid 1px",
+                          outlineOffset: "-1px",
+                          backdropFilter: "blur(6px)",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "flex-start",
+                          alignItems: "flex-start",
+                          overflow: "hidden",
+                        }}
+                      >
+                        <div className="relative h-[180px] w-full sm:h-[220px]">
+                          <Image src={item.imageSrc} alt={item.title} fill sizes="100vw" className="object-cover" />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={goToPreviousBanner}
+                className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/85 px-2 py-1 text-sm font-semibold text-[#A80689] shadow-sm"
+                aria-label="Previous banner"
+              >
+                ‹
+              </button>
+              <button
+                type="button"
+                onClick={goToNextBanner}
+                className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/85 px-2 py-1 text-sm font-semibold text-[#A80689] shadow-sm"
+                aria-label="Next banner"
+              >
+                ›
+              </button>
+
+              <div className="mt-3 flex items-center justify-center gap-2">
+                {PRIVILEGES.map((item, index) => (
+                  <button
+                    key={`${item.title}-dot`}
+                    type="button"
+                    onClick={() => setActiveBanner(index)}
+                    aria-label={`Go to banner ${index + 1}`}
+                    className={`h-2.5 rounded-full transition-all ${
+                      activeBanner === index ? "w-6 bg-[#A80689]" : "w-2.5 bg-slate-300"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </section>
 
@@ -190,65 +270,6 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 bg-white/95 px-3 pb-safe-bottom pt-3 shadow-[0_-12px_32px_rgba(0,0,0,0.03)] backdrop-blur-2xl md:rounded-t-[32px] lg:px-6">
-        <div className="mx-auto flex w-full max-w-[1180px] items-center justify-around border-t border-slate-50/50 pt-1">
-          <div className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-[#74045F] transition-transform active:scale-95">
-            <div className="relative flex h-8 w-8 items-center justify-center">
-              <div className="absolute inset-0 scale-125 rounded-full bg-purple-50 opacity-40 blur-sm" />
-              <div className="flex h-6 w-6 items-center justify-center rounded bg-[radial-gradient(ellipse_75.81%_145.75%_at_49.46%_-2.02%,_#FF44DB_0%,_#A80689_100%)] shadow-[inset_0_1px_3px_rgba(255,255,255,0.5)]">
-                <Image
-                  src="/asset/icons/home-icon/Vector-3.svg"
-                  alt="Home"
-                  width={16}
-                  height={16}
-                  className="brightness-0 invert"
-                />
-              </div>
-            </div>
-            <span className="text-center text-[10px] font-bold tracking-tight">หน้าหลัก</span>
-          </div>
-
-          <div className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-slate-400 transition-transform active:scale-95">
-            <div className="flex h-8 w-8 items-center justify-center transition-all group-hover:scale-110">
-              <Image
-                src="/asset/icons/home-icon/Nav Bar-2.svg"
-                alt="Usage"
-                width={22}
-                height={22}
-                className="opacity-60 transition-all group-hover:opacity-100"
-              />
-            </div>
-            <span className="w-full truncate px-1 text-center text-[10px] font-normal tracking-tight">สถานที่ใช้ไฟ</span>
-          </div>
-
-          <div onClick={onOpenService} className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-slate-400 transition-transform active:scale-95">
-            <div className="flex h-8 w-8 items-center justify-center transition-all group-hover:scale-110">
-              <Image
-                src="/asset/icons/home-icon/Nav Bar-1.svg"
-                alt="Services"
-                width={22}
-                height={22}
-                className="opacity-60 transition-all group-hover:opacity-100"
-              />
-            </div>
-            <span className="w-full truncate text-center text-[10px] font-normal tracking-tight">บริการ</span>
-          </div>
-
-          <div className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-slate-400 transition-transform active:scale-95">
-            <div className="flex h-8 w-8 items-center justify-center transition-all group-hover:scale-110">
-              <Image
-                src="/asset/icons/home-icon/Nav Bar.svg"
-                alt="Pay"
-                width={22}
-                height={22}
-                className="opacity-60 transition-all group-hover:opacity-100"
-              />
-            </div>
-            <span className="w-full truncate text-center text-[10px] font-normal tracking-tight">ชำระเงิน</span>
-          </div>
-
-        </div>
-      </div>
     </div>
   );
 }

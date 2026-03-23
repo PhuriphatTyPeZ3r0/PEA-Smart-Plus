@@ -19,9 +19,6 @@ interface HomeViewProps {
   };
   isActive: boolean;
   onOpenEvaluation: () => void;
-  onOpenNotifications: () => void;
-  onOpenService: () => void;
-  onOpenServiceAll: () => void;
 }
 
 const QUICK_ACTIONS = [
@@ -36,13 +33,13 @@ const PRIVILEGES = [
     title: "ชาร์จคุ้ม ชาร์จครั้งแรก ลดทันที 20 บาท",
     description: "โปรแรงรับหน้าฝน วันนี้ - 31 ส.ค. รับส่วนลดทันทีเมื่อชาร์จผ่านแอป",
     discount: "20.-",
-    imageSrc: "/asset/icons/home-icon/Group 289549.svg",
+    imageSrc: "/images/banner/1_th_0.png",
   },
   {
     title: "รับส่วนลดค่าไฟสูงสุด 10% เมื่อชำระผ่านแอป",
     description: "สิทธิพิเศษสำหรับลูกค้า PEA Smart Plus เท่านั้น",
     discount: "10%",
-    imageSrc: "/asset/icons/home-icon/Group 289549.svg",
+    imageSrc: "/images/banner/1-3_0.png",
   },
 ];
 
@@ -50,21 +47,21 @@ const RECOMMENDED_SERVICES = [
   {
     title: "บริการติดตั้ง Solar",
     description: "ใช้ 250 คะแนน แลกส่วนลด 20 บาท",
-    imageSrc: "https://placehold.co/172x172",
+    imageSrc: "/images/banner/3_th_0.png",
   },
   {
     title: "ตรวจสอบสายไฟ",
     description: "บริการตรวจสอบระบบไฟฟ้าภายในบ้าน",
-    imageSrc: "https://placehold.co/172x172",
+    imageSrc: "/images/banner/2_th_0.png",
   },
   {
     title: "ขยายเขตไฟฟ้า",
     description: "ยื่นขอรับบริการออนไลน์ได้ทันที",
-    imageSrc: "https://placehold.co/172x172",
+    imageSrc: "/images/banner/1_th_0.png",
   },
 ];
 
-export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenNotifications, onOpenService, onOpenServiceAll }: HomeViewProps) {
+export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeViewProps) {
   return (
     <div
       className={`relative flex h-full flex-1 flex-col overflow-hidden bg-[#F8FAFC] ${
@@ -104,7 +101,6 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
 
               <button
                 type="button"
-                onClick={onOpenNotifications}
                 className="relative flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/15 backdrop-blur-lg transition-transform active:scale-90 sm:h-11 sm:w-11"
                 aria-label="Notifications"
               >
@@ -143,7 +139,6 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
                 <div
                   key={item.label}
                   className="group flex min-w-0 cursor-pointer flex-col items-center gap-3"
-                  onClick={item.label === "ดูเพิ่มเติม" ? onOpenServiceAll : undefined}
                 >
                   <div className="flex aspect-square w-full max-w-[68px] items-center justify-center rounded-[24px] border border-slate-50 bg-white shadow-[0_10px_20px_-8px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-purple-50/20 group-hover:shadow-xl active:scale-90 sm:max-w-[76px]">
                     <Image
@@ -167,9 +162,9 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
               <h2 className="text-lg font-semibold text-black">สิทธิพิเศษ</h2>
               <button className="text-sm font-medium text-[#A80689] transition-transform active:scale-95">ดูทั้งหมด</button>
             </div>
-            <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 lg:grid lg:grid-cols-2 lg:overflow-visible">
+            <div className="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2">
               {PRIVILEGES.map((item) => (
-                <PrivilegeCard key={item.title} {...item} />
+                <PrivilegeCard key={`${item.title}-${item.imageSrc}`} {...item} />
               ))}
             </div>
           </section>
@@ -179,9 +174,9 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
               <h2 className="text-lg font-semibold text-black">บริการแนะนำ</h2>
               <button className="text-sm font-medium text-[#A80689] transition-transform active:scale-95">ดูทั้งหมด</button>
             </div>
-            <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 lg:grid lg:grid-cols-3 lg:overflow-visible">
+            <div className="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2">
               {RECOMMENDED_SERVICES.map((item) => (
-                <RecommendedServiceCard key={item.title} {...item} />
+                <RecommendedServiceCard key={`${item.title}-${item.imageSrc}`} {...item} />
               ))}
             </div>
           </section>
@@ -216,12 +211,13 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
                 width={22}
                 height={22}
                 className="opacity-60 transition-all group-hover:opacity-100"
+                style={{ width: "auto", height: "auto" }}
               />
             </div>
             <span className="w-full truncate px-1 text-center text-[10px] font-normal tracking-tight">สถานที่ใช้ไฟ</span>
           </div>
 
-          <div onClick={onOpenService} className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-slate-400 transition-transform active:scale-95">
+          <div className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-slate-400 transition-transform active:scale-95">
             <div className="flex h-8 w-8 items-center justify-center transition-all group-hover:scale-110">
               <Image
                 src="/asset/icons/home-icon/Nav Bar-1.svg"
@@ -229,6 +225,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
                 width={22}
                 height={22}
                 className="opacity-60 transition-all group-hover:opacity-100"
+                style={{ width: "auto", height: "auto" }}
               />
             </div>
             <span className="w-full truncate text-center text-[10px] font-normal tracking-tight">บริการ</span>
@@ -242,6 +239,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
                 width={22}
                 height={22}
                 className="opacity-60 transition-all group-hover:opacity-100"
+                style={{ width: "auto", height: "auto" }}
               />
             </div>
             <span className="w-full truncate text-center text-[10px] font-normal tracking-tight">ชำระเงิน</span>
@@ -258,6 +256,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
                 width={22}
                 height={22}
                 className="opacity-60 transition-all group-hover:opacity-100"
+                style={{ width: "auto", height: "auto" }}
               />
             </div>
             <span className="w-full truncate text-center text-[10px] font-normal tracking-tight">โปรไฟล์</span>

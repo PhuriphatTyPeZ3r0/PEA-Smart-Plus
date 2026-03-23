@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { UserProfileProvider } from "@/components/providers/UserProfileProvider";
+import GlobalTabBar from "@/components/GlobalTabBar";
 
 export const metadata: Metadata = {
   title: "PEA Smart Plus",
@@ -79,6 +80,7 @@ export default function RootLayout({
           <div className="flex min-h-[100dvh] items-center justify-center overflow-hidden bg-[#F1F5F9] p-0 font-sans text-slate-900 md:p-4 lg:p-6">
             <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-white shadow-2xl md:mx-auto md:h-[calc(100dvh-2rem)] md:max-w-[820px] md:rounded-[40px] md:border-[6px] md:border-slate-800 lg:h-[calc(100dvh-3rem)] lg:max-w-[1180px] lg:border-0 xl:max-w-[1320px]">
               {children}
+              <GlobalTabBar />
             </div>
           </div>
         </UserProfileProvider>

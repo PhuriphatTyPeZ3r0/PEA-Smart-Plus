@@ -10,7 +10,7 @@ interface PrivilegeCardProps {
 
 const PrivilegeCard: React.FC<PrivilegeCardProps> = ({ title, description, discount, imageSrc }) => {
   return (
-    <div className="flex w-[280px] shrink-0 flex-col justify-start items-start sm:w-[320px] lg:w-full">
+    <div className="flex w-[280px] shrink-0 snap-start flex-col justify-start items-start sm:w-[320px]">
       <div className="self-stretch h-36 relative rounded-2xl overflow-hidden shadow-sm">
         <Image src={imageSrc} alt={title} fill className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />

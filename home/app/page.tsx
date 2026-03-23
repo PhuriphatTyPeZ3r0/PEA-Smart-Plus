@@ -56,7 +56,6 @@ export default function HomePage() {
       isActive={true}
       onOpenEvaluation={() => router.push("/evaluation")}
       onOpenNotifications={() => router.push("/notification")}
-      onOpenService={() => router.push("/service")}
       onOpenServiceAll={() => router.push("/service-all")}
     />
   );

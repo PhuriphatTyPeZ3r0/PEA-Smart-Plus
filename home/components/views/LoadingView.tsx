@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function LoadingView() {
   return (
-    <div className="flex-1 flex flex-col items-center justify-center bg-white">
+    <div className="absolute inset-0 z-[120] flex flex-col items-center justify-center bg-white">
       <div className="w-32 h-32 relative">
         <Image 
           src="/asset/loading/loading.gif" 
