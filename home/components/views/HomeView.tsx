@@ -56,13 +56,13 @@ const RECOMMENDED_SERVICES = [
     imageSrc: "/images/banner/3_th_0.png",
   },
   {
-    title: "ตรวจสอบสายไฟ",
-    description: "บริการตรวจสอบระบบไฟฟ้าภายในบ้าน",
+    title: "บริการติดตั้ง Solar",
+    description: "ใช้ 250 คะแนน แลกส่วนลด 20 บาท",
     imageSrc: "/images/banner/3_th_0.png",
   },
   {
-    title: "ขยายเขตไฟฟ้า",
-    description: "ยื่นขอรับบริการออนไลน์ได้ทันที",
+    title: "บริการติดตั้ง Solar",
+    description: "ใช้ 250 คะแนน แลกส่วนลด 20 บาท",
     imageSrc: "/images/banner/3_th_0.png",
   },
 ];
