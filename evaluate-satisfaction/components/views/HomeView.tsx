@@ -185,7 +185,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeV
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 bg-white/95 px-3 pb-safe-bottom pt-3 shadow-[0_-12px_32px_rgba(0,0,0,0.03)] backdrop-blur-2xl md:rounded-t-[32px] lg:px-6">
+      <div className="pwa-tabbar absolute bottom-0 left-0 right-0 bg-white/95 px-3 pb-safe-bottom pt-3 shadow-[0_-12px_32px_rgba(0,0,0,0.03)] backdrop-blur-2xl md:rounded-t-[32px] lg:px-6">
         <div className="mx-auto flex w-full max-w-[1180px] items-center justify-around border-t border-slate-50/50 pt-1">
           <div className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-[#74045F] transition-transform active:scale-95">
             <div className="relative flex h-8 w-8 items-center justify-center">

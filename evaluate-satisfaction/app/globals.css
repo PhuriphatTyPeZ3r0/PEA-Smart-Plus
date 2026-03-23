@@ -81,6 +81,16 @@ body {
   scrollbar-width: none;
 }
 
+@media (display-mode: standalone) {
+  .pwa-tabbar {
+    position: fixed !important;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+  }
+}
+
 /* Edit Phone flow migration styles */
 .edit-phone-flow {
   width: 100%;

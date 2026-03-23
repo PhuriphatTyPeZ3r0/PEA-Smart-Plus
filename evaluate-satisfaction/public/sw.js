@@ -1,5 +1,13 @@
-const CACHE_NAME = "evaluate-satisfaction-v3";
-const urlsToCache = ["/", "/manifest.json", "/favicon.ico", "/pwa-icon.png"];
+const CACHE_NAME = "evaluate-satisfaction-pwa-v1";
+const urlsToCache = [
+  "/",
+  "/manifest.json",
+  "/favicon.ico",
+  "/pwa-icon-192.png",
+  "/pwa-icon-512.png",
+  "/pwa-icon-maskable-192.png",
+  "/pwa-icon-maskable-512.png",
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -18,7 +26,13 @@ self.addEventListener("activate", (event) => {
       .then((keys) =>
         Promise.all(
           keys.map((key) => {
-            if (key !== CACHE_NAME && key.startsWith("evaluate-satisfaction-")) {
+            if (
+              key !== CACHE_NAME &&
+              (key.startsWith("evaluate-satisfaction-") ||
+                key.startsWith("evaluate-satisfaction-pwa-") ||
+                key.startsWith("home-pwa-") ||
+                key.startsWith("pea-smart-plus-home-"))
+            ) {
               return caches.delete(key);
             }
             return Promise.resolve();
