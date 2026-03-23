@@ -267,8 +267,8 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
               <button className="text-sm font-medium text-[#A80689] transition-transform active:scale-95">ดูทั้งหมด</button>
             </div>
             <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible xl:grid-cols-3">
-              {RECOMMENDED_SERVICES.map((item) => (
-                <RecommendedServiceCard key={item.title} {...item} />
+              {RECOMMENDED_SERVICES.map((item, index) => (
+                <RecommendedServiceCard key={`${item.title}-${index}`} {...item} />
               ))}
             </div>
           </section>
