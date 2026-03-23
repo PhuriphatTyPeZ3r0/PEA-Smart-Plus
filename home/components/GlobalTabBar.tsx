@@ -15,28 +15,32 @@ const TAB_ITEMS: TabItem[] = [
   {
     href: "/",
     label: "หน้าหลัก",
-    icon: "/asset/icons/home-icon/Vector-3.svg",
-    activeIcon: "/asset/icons/home-icon/Vector-3.svg",
+    icon: "/asset/tab-bar-asset/home-nav-bar.png",
+    activeIcon: "/asset/tab-bar-asset/active-home-nav-bar.png",
   },
   {
-    href: "/notification",
-    label: "แจ้งเตือน",
-    icon: "/asset/icons/home-icon/Nav Bar-2.svg",
+    href: "/location",
+    label: "สถานที่ใช้ไฟฟ้า",
+    icon: "/asset/tab-bar-asset/ca-nav-bar.svg",
+    activeIcon: "/asset/tab-bar-asset/active-ca-nav-bar.png",
   },
   {
     href: "/service",
     label: "บริการ",
-    icon: "/asset/icons/home-icon/Nav Bar-1.svg",
+    icon: "/asset/tab-bar-asset/service-nav-bar.png",
+    activeIcon: "/asset/tab-bar-asset/active-service-nav-bar.png",
   },
   {
     href: "/service-all",
-    label: "ชำระเงิน",
-    icon: "/asset/icons/home-icon/Nav Bar.svg",
+    label: "พอยต์",
+    icon: "/asset/tab-bar-asset/watt-d-point-nav-bar.svg",
+    activeIcon: "/asset/tab-bar-asset/active-watt-d-point.png",
   },
   {
-    href: "/dashboard",
+    href: "/profile",
     label: "โปรไฟล์",
-    icon: "/asset/icons/home-icon/user-avatar (1) 1.svg",
+    icon: "/asset/tab-bar-asset/user-avatar-nav-bar.svg",
+    activeIcon: "/asset/tab-bar-asset/active-avatar-nav-bar.png",
   },
 ];
 
@@ -70,29 +74,14 @@ export default function GlobalTabBar() {
               }`}
             >
               <div className="relative flex h-8 w-8 items-center justify-center transition-all group-hover:scale-110">
-                {active && tab.href === "/" ? (
-                  <>
-                    <div className="absolute inset-0 scale-125 rounded-full bg-purple-50 opacity-40 blur-sm" />
-                    <div className="flex h-6 w-6 items-center justify-center rounded bg-[radial-gradient(ellipse_75.81%_145.75%_at_49.46%_-2.02%,_#FF44DB_0%,_#A80689_100%)] shadow-[inset_0_1px_3px_rgba(255,255,255,0.5)]">
-                      <Image
-                        src={iconSrc}
-                        alt={tab.label}
-                        width={16}
-                        height={16}
-                        className="brightness-0 invert"
-                      />
-                    </div>
-                  </>
-                ) : (
-                  <Image
-                    src={iconSrc}
-                    alt={tab.label}
-                    width={22}
-                    height={22}
-                    className={`${active ? "opacity-100" : "opacity-60"} transition-all group-hover:opacity-100`}
-                    style={{ width: "auto", height: "auto" }}
-                  />
-                )}
+                <Image
+                  src={iconSrc}
+                  alt={tab.label}
+                  width={24}
+                  height={24}
+                  className={`${active ? "opacity-100" : "opacity-80"} object-contain transition-all group-hover:opacity-100`}
+                  style={{ width: "auto", height: "auto" }}
+                />
               </div>
               <span className={`w-full truncate px-1 text-center text-[10px] tracking-tight ${active ? "font-bold" : "font-normal"}`}>
                 {tab.label}
