@@ -1,0 +1,17 @@
+{
+  "name": "PEA Smart Plus",
+  "short_name": "PEA Smart",
+  "description": "PEA Smart Plus Satisfaction Evaluation",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7B2CBF",
+  "icons": [
+    {
+      "src": "/pwa-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
