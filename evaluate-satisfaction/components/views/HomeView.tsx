@@ -246,7 +246,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeV
           </div>
 
           <Link
-            href="/profile"
+            href="/"
             className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-slate-400 transition-transform active:scale-95"
           >
             <div className="flex h-8 w-8 items-center justify-center transition-all group-hover:scale-110">
