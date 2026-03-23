@@ -211,7 +211,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
           <div className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-slate-400 transition-transform active:scale-95">
             <div className="flex h-8 w-8 items-center justify-center transition-all group-hover:scale-110">
               <Image
-                src="/asset/icons/home-icon/Nav Bar-1.svg"
+                src="/asset/icons/home-icon/Nav Bar-2.svg"
                 alt="Usage"
                 width={22}
                 height={22}
@@ -224,7 +224,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
           <div onClick={onOpenService} className="group flex min-w-0 flex-1 cursor-pointer flex-col items-center gap-1.5 text-slate-400 transition-transform active:scale-95">
             <div className="flex h-8 w-8 items-center justify-center transition-all group-hover:scale-110">
               <Image
-                src="/asset/icons/home-icon/Nav Bar-2.svg"
+                src="/asset/icons/home-icon/Nav Bar-1.svg"
                 alt="Services"
                 width={22}
                 height={22}
