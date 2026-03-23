@@ -50,14 +50,14 @@ const RECOMMENDED_SERVICES = [
     imageSrc: "/images/banner/3_th_0.png",
   },
   {
-    title: "ตรวจสอบสายไฟ",
-    description: "บริการตรวจสอบระบบไฟฟ้าภายในบ้าน",
-    imageSrc: "/images/banner/2_th_0.png",
+    title: "บริการติดตั้ง Solar",
+    description: "ใช้ 250 คะแนน แลกส่วนลด 20 บาท",
+    imageSrc: "/images/banner/3_th_0.png",
   },
   {
-    title: "ขยายเขตไฟฟ้า",
-    description: "ยื่นขอรับบริการออนไลน์ได้ทันที",
-    imageSrc: "/images/banner/1_th_0.png",
+    title: "บริการติดตั้ง Solar",
+    description: "ใช้ 250 คะแนน แลกส่วนลด 20 บาท",
+    imageSrc: "/images/banner/3_th_0.png",
   },
 ];
 
@@ -175,8 +175,8 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation }: HomeV
               <button className="text-sm font-medium text-[#A80689] transition-transform active:scale-95">ดูทั้งหมด</button>
             </div>
             <div className="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2">
-              {RECOMMENDED_SERVICES.map((item) => (
-                <RecommendedServiceCard key={`${item.title}-${item.imageSrc}`} {...item} />
+              {RECOMMENDED_SERVICES.map((item, index) => (
+                <RecommendedServiceCard key={`${item.title}-${index}`} {...item} />
               ))}
             </div>
           </section>
