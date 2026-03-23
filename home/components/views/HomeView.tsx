@@ -194,7 +194,7 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
                   className="flex transition-transform duration-500 ease-out"
                   style={{ transform: `translateX(-${activeBanner * 100}%)` }}
                 >
-                  {PRIVILEGES.map((item) => (
+                  {PRIVILEGES.map((item, index) => (
                     <div key={`${item.imageSrc}-${item.title}`} className="w-full shrink-0">
                       <div
                         style={{
@@ -213,7 +213,14 @@ export default function HomeView({ mockUser, isActive, onOpenEvaluation, onOpenN
                         }}
                       >
                         <div className="relative h-[168px] w-full sm:h-[220px] lg:h-[250px] xl:h-[280px]">
-                          <Image src={item.imageSrc} alt={item.title} fill sizes="100vw" className="object-cover" />
+                          <Image
+                            src={item.imageSrc}
+                            alt={item.title}
+                            fill
+                            sizes="100vw"
+                            loading={index === 0 ? "eager" : "lazy"}
+                            className="object-cover"
+                          />
                         </div>
                       </div>
                     </div>
